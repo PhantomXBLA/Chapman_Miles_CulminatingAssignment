@@ -45,3 +45,6 @@ TagManager:
   - name: OverworldCharacters
     uniqueID: 2350719879
     locked: 0
+  - name: Background
+    uniqueID: 752830111
+    locked: 0
