@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Noah
+  - Tall Grass
   layers:
   - Default
   - TransparentFX
@@ -42,9 +43,42 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 752830111
+    locked: 0
+  - name: Water
+    uniqueID: 3853271697
+    locked: 0
+  - name: Dirt
+    uniqueID: 3634976557
+    locked: 0
+  - name: Ground Detail
+    uniqueID: 3613440597
+    locked: 0
+  - name: Shadows
+    uniqueID: 3770274151
+    locked: 0
+  - name: Default
+    uniqueID: 807982661
+    locked: 0
+  - name: Props
+    uniqueID: 333810643
+    locked: 0
+  - name: Houses
+    uniqueID: 3081932185
+    locked: 0
+  - name: Foliage
+    uniqueID: 4087395303
+    locked: 0
+  - name: Obstacles
+    uniqueID: 1044361635
+    locked: 0
+  - name: Foreground
+    uniqueID: 1867376261
+    locked: 0
   - name: OverworldCharacters
     uniqueID: 2350719879
     locked: 0
-  - name: Background
-    uniqueID: 752830111
+  - name: Tall Grass
+    uniqueID: 1792266883
     locked: 0
