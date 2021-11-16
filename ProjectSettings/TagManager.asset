@@ -76,9 +76,9 @@ TagManager:
   - name: Foreground
     uniqueID: 1867376261
     locked: 0
-  - name: OverworldCharacters
-    uniqueID: 2350719879
-    locked: 0
   - name: Tall Grass
     uniqueID: 1792266883
+    locked: 0
+  - name: OverworldCharacters
+    uniqueID: 2350719879
     locked: 0

@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rigidbody = null;
 
+    public bool isMoving = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,10 +21,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputY = Input.GetAxisRaw("Vertical");
 
         rigidbody.velocity = new Vector2(inputX * moveSpeed, inputY * moveSpeed);
-
     }
 }

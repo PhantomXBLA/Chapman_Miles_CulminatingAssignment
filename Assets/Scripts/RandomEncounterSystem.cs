@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class RandomEncounterSystem : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -21,15 +22,19 @@ public class RandomEncounterSystem : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "Tall Grass")
+        if (other.tag == "Tall Grass") //and is moving
         {
-            if (Random.Range(1, 101) <= 1)
+            //A 1/1000 chance to encounter something if the player stays in the Tall Grass
+            //for any amount of time.
+            if (Random.Range(1, 1001) <= 1)
             {
                 Debug.Log("A wild something something appeared");
-                //Need to trigger battle state
                 //Freeze the players movement until battle state is false.
-                SceneManager.LoadScene("Battle Scene");
+                //Play encounter animation and music
+                //Need to trigger battle state
+                //SceneManager.LoadScene("Battle Scene");
             }
+            //if battle/random encounter scene is active, cannot encounter anything
         }
     }
 }
