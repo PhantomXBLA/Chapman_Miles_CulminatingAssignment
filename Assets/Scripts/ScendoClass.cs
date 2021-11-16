@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[System.Serializable]
+
 
 public class ScendoClass
 {
-    int SpeedStat = 0;
-    int HealthStat = 0;
-    int AttackStat = 0;
-    int DefenseStat = 0;
-    int EXP = 0;
-    int Level = 1;
+    public int SpeedStat = 0;
+    public int HealthStat = 0;
+    public int AttackStat = 0;
+    public int DefenseStat = 0;
+    public int EXP = 0;
+    public int Level = 1;
 
-    string name;
+    public string name;
 
-    Sprite frontSprite;
-    Sprite backSprite;
+    public Sprite frontSprite;
+    public Sprite backSprite;
 
 
 
