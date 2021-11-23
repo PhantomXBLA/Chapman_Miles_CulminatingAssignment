@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Noah
   - Tall Grass
+  - Houses
+  - Foliage
+  - Dirt
+  - Water
   layers:
   - Default
   - TransparentFX
