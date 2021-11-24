@@ -4,9 +4,10 @@ using UnityEngine;
 
 public abstract class ICharacter : MonoBehaviour
 {
-    public Ability[] abilities;
+    [SerializeField]
+    protected Ability[] abilities;
 
-    public abstract void TakeTurn();
+    public abstract void TakeTurn(EncounterInstance encounter);
 
     // Start is called before the first frame update
     void Start()

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class EncounterPlayerCharacter : ICharacter
 {
+    [SerializeField]
+    private AICharacter opponent;
+    [SerializeField]
+    private EncounterInstance myEncounter;
 
-    public override void TakeTurn()
+    public override void TakeTurn(EncounterInstance encounter)
     {
-        throw new System.NotImplementedException();
+        myEncounter = encounter;
+        opponent = encounter.Enemy;
+        Debug.Log("Player taking turn");
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void UseAbility(int slot)
     {
-        
+        abilities[slot].Cast(this, opponent);
+        myEncounter.AdvanceTurns();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

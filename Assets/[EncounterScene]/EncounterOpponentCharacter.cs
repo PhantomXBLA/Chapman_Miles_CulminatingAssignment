@@ -5,7 +5,7 @@ using UnityEngine;
 public class EncounterOpponentCharacter : ICharacter
 {
 
-    public override void TakeTurn()
+    public override void TakeTurn(EncounterInstance encounter)
     {
         Debug.Log("Enemy character TakeTurn is TODO");
         throw new System.NotImplementedException();
