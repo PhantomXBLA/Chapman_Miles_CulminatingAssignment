@@ -31,9 +31,9 @@ public class AICharacter : ICharacter
 
         //if (Random.Range(1, 3) <= 1)
         //{
-            
-        //}
 
+        //}
+        yield return new WaitForSeconds(5.0f);
         Debug.Log("Enemy taking turn");
         yield return new WaitForSeconds(5.0f);
         encounter.AdvanceTurns();

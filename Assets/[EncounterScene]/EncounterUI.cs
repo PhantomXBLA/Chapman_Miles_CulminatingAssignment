@@ -9,16 +9,13 @@ public class EncounterUI : MonoBehaviour
     EncounterInstance encounter;
 
     [SerializeField]
-    EncounterPlayerCharacter attack;
-
-    [SerializeField]
     TMPro.TextMeshProUGUI encounterText;
 
     [SerializeField]
-    private GameObject abilityPanel;
+    private GameObject mainPanel;
 
     [SerializeField]
-    private GameObject fightPanel;
+    private GameObject abilityPanel;
 
 
 
@@ -47,13 +44,17 @@ public class EncounterUI : MonoBehaviour
         //On player turn end, disable UI
         encounter.onPlayerTurnEnd.AddListener(DisablePlayerUI);
 
+        
+        encounter.onEnemyTurnBegin.AddListener(DisablePlayerUI);
 
-        //On player turn begin, enable UI
+        
+        encounter.onEnemyTurnEnd.AddListener(EnablePlayerUI);
 
 
-        fightPanel.SetActive(false);
 
 
+
+        abilityPanel.SetActive(false);
     }
 
     //void AnnounceCharacterTurnBegin(ICharacter characterTurn)
@@ -69,45 +70,66 @@ public class EncounterUI : MonoBehaviour
 
     void EnablePlayerUI(ICharacter characterTurn)
     {
-        abilityPanel.SetActive(true);
+        mainPanel.SetActive(true);
     }
 
     void DisablePlayerUI(ICharacter characterTurn)
     {
+        mainPanel.SetActive(false);
         abilityPanel.SetActive(false);
-        fightPanel.SetActive(false);
     }
 
 
-    public void ResetPlayerTurn(ICharacter characterTurn)
-    {
-        animateTextCoroutineRef = AnimateTextCoroutine("What will " + characterTurn.name + " do?");
-        StartCoroutine(animateTextCoroutineRef);
-    }
+    //public void ResetPlayerTurn(ICharacter characterTurn)
+    //{
+    //    animateTextCoroutineRef = AnimateTextCoroutine("What will " + characterTurn.name + " do?");
+    //}
 
 
 
 
-    ////---------------------------------------------------------------------- Panel Control via ABILITY BUTTONS --------------------------------------------------
+    ////---------------------------------------------------------------------- Panel Control via MAIN BUTTONS --------------------------------------------------
     public void OnFightButtonPressed(ICharacter characterTurn)
     {
+        StopCoroutine((animateTextCoroutineRef));
         animateTextCoroutineRef = AnimateTextCoroutine("What will " + characterTurn.name + " do?");
         StartCoroutine(animateTextCoroutineRef);
-        fightPanel.SetActive(true);
-        abilityPanel.SetActive(false);
+        abilityPanel.SetActive(true);
+        mainPanel.SetActive(false);
     }
 
-    //-------------------------------------------------------------------------- Panel Control via FIGHT BUTTONS --------------------------------------------------
+    //----------------------------------------------------------------------- Panel Control via ABILITY BUTTONS --------------------------------------------------
 
     public void OnSlapButtonPressed(ICharacter characterTurn)
     {
-        animateTextCoroutineRef = AnimateTextCoroutine(characterTurn.name + " used Slap!"); //need to add attack argument here so any attack can be used
+        StopCoroutine((animateTextCoroutineRef));
+        animateTextCoroutineRef = AnimateTextCoroutine(characterTurn.name + " used Slap!");
         StartCoroutine(animateTextCoroutineRef);
-        fightPanel.SetActive(false);
+        abilityPanel.SetActive(false);
+       //StartCoroutine(DelayNextTurn());
 
         //play slap animation here
     }
 
+    public void OnLeafBlastButtonPressed(ICharacter characterTurn)
+    {
+        StopCoroutine((animateTextCoroutineRef));
+        animateTextCoroutineRef = AnimateTextCoroutine(characterTurn.name + " used Leaf Blast!"); //need to add attack argument here so any attack can be used
+        StartCoroutine(animateTextCoroutineRef);
+        abilityPanel.SetActive(false);
+        //StartCoroutine(DelayNextTurn());
+
+
+        //play Leaf Blast animation here
+    }
+
+
+
+    //IEnumerator DelayNextTurn()
+    //{
+    //    yield return new WaitForSeconds(3.0f);
+    //    encounter.AdvanceTurns();
+    //}
 
 
     IEnumerator AnimateTextCoroutine(string message)
