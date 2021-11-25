@@ -18,8 +18,8 @@ public class EncounterPlayerCharacter : ICharacter
 
     public void UseAbility(int slot)
     {
+
         abilities[slot].Cast(this, opponent);
         myEncounter.AdvanceTurns();
     }
-
 }

@@ -20,4 +20,6 @@ public abstract class ICharacter : MonoBehaviour
     {
         
     }
+
+
 }

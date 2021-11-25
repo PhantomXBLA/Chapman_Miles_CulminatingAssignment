@@ -16,6 +16,12 @@ public class EncounterInstance : MonoBehaviour
         private set { enemy = value; } 
     }
 
+    public EncounterPlayerCharacter Player
+    {
+        get { return player; }
+        private set { player = value; }
+    }
+
     //Events
     public UnityEvent<ICharacter> onCharacterTurnBegin;
     public UnityEvent<ICharacter> onCharacterTurnEnd;
@@ -60,8 +66,5 @@ public class EncounterInstance : MonoBehaviour
 
         onCharacterTurnBegin.Invoke(currentCharacterTurn);
         currentCharacterTurn.TakeTurn(this);
-
-
     }
-
 }

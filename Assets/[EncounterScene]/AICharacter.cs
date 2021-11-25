@@ -4,31 +4,39 @@ using UnityEngine;
 
 public class AICharacter : ICharacter
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    [SerializeField]
+    private EncounterPlayerCharacter opponent;
+    [SerializeField]
+    private EncounterInstance myEncounter;
 
     public override void TakeTurn(EncounterInstance encounter)
     {
         StartCoroutine(DelayDecision(encounter));
     }
 
+    public void UseAbility(int slot)
+    {
+        abilities[slot].Cast(this, opponent);
+        myEncounter.AdvanceTurns();
+    }
+
+
     IEnumerator DelayDecision(EncounterInstance encounter)
     {
         //Choose what action to do
         //Cast some ability
 
+        myEncounter = encounter;
+        opponent = encounter.Player;
+
+        //if (Random.Range(1, 3) <= 1)
+        //{
+            
+        //}
+
         Debug.Log("Enemy taking turn");
         yield return new WaitForSeconds(5.0f);
         encounter.AdvanceTurns();
+
     }
 }
