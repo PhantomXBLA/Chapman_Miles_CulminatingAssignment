@@ -21,5 +21,8 @@ public class EncounterPlayerCharacter : ICharacter
 
         abilities[slot].Cast(this, opponent);
         myEncounter.AdvanceTurns();
+
+
+        //Add move animation here maybe??
     }
 }

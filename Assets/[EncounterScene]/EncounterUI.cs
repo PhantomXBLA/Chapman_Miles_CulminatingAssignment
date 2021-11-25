@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //Will prompt the user what to do, and enable/disable UI elements at different times
 public class EncounterUI : MonoBehaviour
@@ -17,7 +18,10 @@ public class EncounterUI : MonoBehaviour
     [SerializeField]
     private GameObject abilityPanel;
 
+    public GameObject player;
 
+    //These are buttons
+    GameObject move1, move2;
 
     [SerializeField]
     float timeBetweenCharacters = 0.1f;
@@ -96,33 +100,45 @@ public class EncounterUI : MonoBehaviour
         StartCoroutine(animateTextCoroutineRef);
         abilityPanel.SetActive(true);
         mainPanel.SetActive(false);
+
+        GameObject[] allButtons = UnityEngine.Object.FindObjectsOfType<GameObject>();
+
+        foreach (GameObject go in allButtons)
+        {
+            if (go.name == "Move1")
+            {
+                move1 = go;
+            }
+
+            else if (go.name == "Move2")
+            {
+                move2 = go;
+            }
+        }
+
+
+        move1.GetComponent<Button>().onClick.AddListener(delegate { OnAttackButtonPressed(player.GetComponent<EncounterPlayerCharacter>(), 0, 
+        move1.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text); });
+
+        move2.GetComponent<Button>().onClick.AddListener(delegate { OnAttackButtonPressed(player.GetComponent<EncounterPlayerCharacter>(), 1, 
+        move2.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text); });
     }
 
     //----------------------------------------------------------------------- Panel Control via ABILITY BUTTONS --------------------------------------------------
 
-    public void OnSlapButtonPressed(ICharacter characterTurn)
+    public void OnAttackButtonPressed(ICharacter characterTurn, int move, string moveName)
     {
         StopCoroutine((animateTextCoroutineRef));
-        animateTextCoroutineRef = AnimateTextCoroutine(characterTurn.name + " used Slap!");
-        StartCoroutine(animateTextCoroutineRef);
+        player.GetComponent<EncounterPlayerCharacter>().UseAbility(move);
+        animateTextCoroutineRef = AnimateTextCoroutine(characterTurn.name + " used " + moveName + "!");
         abilityPanel.SetActive(false);
+        mainPanel.SetActive(false);
+        StartCoroutine(animateTextCoroutineRef);
+        
        //StartCoroutine(DelayNextTurn());
 
         //play slap animation here
     }
-
-    public void OnLeafBlastButtonPressed(ICharacter characterTurn)
-    {
-        StopCoroutine((animateTextCoroutineRef));
-        animateTextCoroutineRef = AnimateTextCoroutine(characterTurn.name + " used Leaf Blast!"); //need to add attack argument here so any attack can be used
-        StartCoroutine(animateTextCoroutineRef);
-        abilityPanel.SetActive(false);
-        //StartCoroutine(DelayNextTurn());
-
-
-        //play Leaf Blast animation here
-    }
-
 
 
     //IEnumerator DelayNextTurn()
