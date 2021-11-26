@@ -19,6 +19,7 @@ public class EncounterUI : MonoBehaviour
     private GameObject abilityPanel;
 
     public GameObject player;
+    public GameObject enemy;
 
     //These are buttons
     GameObject move1, move2;
@@ -134,10 +135,13 @@ public class EncounterUI : MonoBehaviour
         abilityPanel.SetActive(false);
         mainPanel.SetActive(false);
         StartCoroutine(animateTextCoroutineRef);
-        
-       //StartCoroutine(DelayNextTurn());
+
+        //StartCoroutine(DelayNextTurn());
 
         //play slap animation here
+
+
+
     }
 
 

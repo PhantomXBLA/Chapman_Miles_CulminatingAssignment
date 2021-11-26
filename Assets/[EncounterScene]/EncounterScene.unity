@@ -223,6 +223,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 959ded1150f5b414cac96c2839dced84, type: 2}
   opponent: {fileID: 1215038144}
   myEncounter: {fileID: 1009988983}
+  encounterText: {fileID: 680560517}
+  timeBetweenCharacters: 0.01
+  enemy: {fileID: 21934030}
+  mainPanel: {fileID: 1858299264}
+  abilityPanel: {fileID: 940959801}
+  ability0: {fileID: 11400000, guid: a5e7f2cc2de1da4419a329ff19854461, type: 2}
+  ability1: {fileID: 11400000, guid: 959ded1150f5b414cac96c2839dced84, type: 2}
 --- !u!224 &50656602 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1156831284855081088, guid: c8b0a0d69dbb7764e868b3e80ed1e9ce, type: 3}
@@ -1157,6 +1164,7 @@ MonoBehaviour:
   mainPanel: {fileID: 1858299264}
   abilityPanel: {fileID: 940959801}
   player: {fileID: 1215038141}
+  enemy: {fileID: 21934030}
   timeBetweenCharacters: 0.01
 --- !u!1 &1822624099
 GameObject:

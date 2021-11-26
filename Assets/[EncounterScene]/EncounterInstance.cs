@@ -54,7 +54,6 @@ public class EncounterInstance : MonoBehaviour
         {
             onPlayerTurnEnd.Invoke(player);
             currentCharacterTurn = enemy;
-
         }
         else
         {

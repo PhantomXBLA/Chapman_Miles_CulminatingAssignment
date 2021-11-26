@@ -23,6 +23,6 @@ public class EncounterPlayerCharacter : ICharacter
         myEncounter.AdvanceTurns();
 
 
-        //Add move animation here maybe??
+        //Add move animation for move here
     }
 }
