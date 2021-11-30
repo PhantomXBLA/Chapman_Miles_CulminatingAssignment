@@ -60,9 +60,6 @@ TagManager:
   - name: Ground Detail
     uniqueID: 3613440597
     locked: 0
-  - name: Shadows
-    uniqueID: 3770274151
-    locked: 0
   - name: Default
     uniqueID: 807982661
     locked: 0
@@ -75,11 +72,8 @@ TagManager:
   - name: Foliage
     uniqueID: 4087395303
     locked: 0
-  - name: Obstacles
-    uniqueID: 1044361635
-    locked: 0
-  - name: Foreground
-    uniqueID: 1867376261
+  - name: Flowers
+    uniqueID: 1918946425
     locked: 0
   - name: Tall Grass
     uniqueID: 1792266883
