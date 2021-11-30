@@ -66,4 +66,9 @@ public class EncounterInstance : MonoBehaviour
         onCharacterTurnBegin.Invoke(currentCharacterTurn);
         currentCharacterTurn.TakeTurn(this);
     }
+
+    public void EndBattle()
+    {
+
+    }
 }

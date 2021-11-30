@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rigidbody = null;
 
-    private bool isMoving = false;
+    public static bool isMoving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,17 +22,25 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         PlayerInput();
     }
 
     void PlayerInput()
     {
+        if (isMoving == true)
+        {
+            rigidbody.velocity = new Vector2(0, 0);
+        }
+
+        if (isMoving == false)
+        {
             float inputX = Input.GetAxisRaw("Horizontal");
             float inputY = Input.GetAxisRaw("Vertical");
 
             rigidbody.velocity = new Vector2(inputX * moveSpeed, inputY * moveSpeed);
-
-
+            //isMoving = true;
+        }
     }
 
 
@@ -53,5 +61,13 @@ public class PlayerMovement : MonoBehaviour
             }
             //if battle/random encounter scene is active, cannot encounter anything
         }
+
+
+        
+
     }
+
+
+
+
 }

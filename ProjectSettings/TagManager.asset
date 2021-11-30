@@ -10,6 +10,7 @@ TagManager:
   - Foliage
   - Dirt
   - Water
+  - Background
   layers:
   - Default
   - TransparentFX
