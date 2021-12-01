@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class AICharacter : ICharacter
 {
+
+    public int health;
+
+
     [SerializeField]
     private EncounterPlayerCharacter opponent;
     
@@ -21,12 +25,16 @@ public class AICharacter : ICharacter
 
     [SerializeField]
     public GameObject mainPanel;
-    
+
     [SerializeField]
     public GameObject abilityPanel;
 
+    int moveToUse = 0;
+
+
+
     
-    public Ability ability0, ability1;
+    public Ability ability0, ability1, ability2;
 
     private IEnumerator animateTextCoroutineRef = null;
 
@@ -34,15 +42,16 @@ public class AICharacter : ICharacter
 
     public override void TakeTurn(EncounterInstance encounter)
     {
-        StartCoroutine(DelayDecision(encounter));
         myEncounter = encounter;
         opponent = myEncounter.Player;
+        StartCoroutine(DelayDecision(myEncounter));
+
     }
 
     public void UseAbility(int slot)
     {
         abilities[slot].Cast(this, opponent);
-        myEncounter.AdvanceTurns();
+        //myEncounter.AdvanceTurns();
     }
 
 
@@ -50,24 +59,101 @@ public class AICharacter : ICharacter
     {
         //Choose what action to do
         //Cast some ability
-
+        myEncounter.currentCharacterTurn = myEncounter.Enemy; // new
+        
         yield return new WaitForSeconds(5.0f);
         Debug.Log("Enemy taking turn");
-        animateTextCoroutineRef = AnimateTextCoroutine( "Opponent used " + ability1.name + "!");
+
+
+        if (health <= 50 && health >=26)
+        {
+            int moveProbability = Random.Range(1, 5);
+
+
+            if (moveProbability == 1)
+            {
+                UseAbility(0);
+                moveToUse = 0;
+            }
+            else if(moveProbability == 2)
+            {
+                UseAbility(1);
+                moveToUse = 1;
+            }
+
+            else if (moveProbability >= 3)
+            {
+                UseAbility(2);
+                moveToUse = 2;
+                health += 50;
+            }
+
+        } else if(health <= 25)
+        {
+            int moveProbability = Random.Range(1, 10);
+
+
+            if (moveProbability == 1)
+            {
+                UseAbility(0);
+                moveToUse = 0;
+            }
+            else if (moveProbability == 2)
+            {
+                UseAbility(1);
+                moveToUse = 1;
+            }
+
+            else if (moveProbability >= 3)
+            {
+                UseAbility(2);
+                moveToUse = 2;
+                health += 50;
+            }
+        }
+
+        else if(health > 50)
+        {
+            int moveProbability = Random.Range(1, 10);
+
+
+            if (moveProbability <= 4)
+            {
+                UseAbility(0);
+                moveToUse = 0;
+            }
+            else if (moveProbability <= 9 && moveProbability >=5)
+            {
+                UseAbility(1);
+                moveToUse = 1;
+            }
+
+            else if (moveProbability == 10)
+            {
+                UseAbility(2);
+                moveToUse = 2;
+                health += 50;
+            }
+
+
+        }
+
+
+        
+        animateTextCoroutineRef = AnimateTextCoroutine( "Opponent used " + abilities[moveToUse].name + "!");
         abilityPanel.SetActive(false);
         mainPanel.SetActive(false);
         StartCoroutine(animateTextCoroutineRef);
         yield return new WaitForSeconds(5.0f);
         mainPanel.SetActive(true);
 
-        
+        myEncounter.currentCharacterTurn = myEncounter.Enemy; //new
 
-        
 
 
         //Debug.Log("Enemy taking turn");
         //yield return new WaitForSeconds(5.0f);
-        //myEncounter.AdvanceTurns();
+        myEncounter.AdvanceTurns(); // recomment out if no work :\
 
 
     }

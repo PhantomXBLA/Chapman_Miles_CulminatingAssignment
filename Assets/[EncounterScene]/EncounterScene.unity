@@ -220,7 +220,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilities:
   - {fileID: 11400000, guid: a5e7f2cc2de1da4419a329ff19854461, type: 2}
-  - {fileID: 11400000, guid: 959ded1150f5b414cac96c2839dced84, type: 2}
+  - {fileID: 11400000, guid: 7804b0902ff4c5e459c33d7f6778f106, type: 2}
+  - {fileID: 11400000, guid: e4e748df494420c4a82fc07ffafc65f8, type: 2}
+  health: 1
   opponent: {fileID: 1215038144}
   myEncounter: {fileID: 1009988983}
   encounterText: {fileID: 680560517}
@@ -229,7 +231,8 @@ MonoBehaviour:
   mainPanel: {fileID: 1858299264}
   abilityPanel: {fileID: 940959801}
   ability0: {fileID: 11400000, guid: a5e7f2cc2de1da4419a329ff19854461, type: 2}
-  ability1: {fileID: 11400000, guid: 959ded1150f5b414cac96c2839dced84, type: 2}
+  ability1: {fileID: 11400000, guid: 7804b0902ff4c5e459c33d7f6778f106, type: 2}
+  ability2: {fileID: 11400000, guid: e4e748df494420c4a82fc07ffafc65f8, type: 2}
 --- !u!224 &50656602 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1156831284855081088, guid: c8b0a0d69dbb7764e868b3e80ed1e9ce, type: 3}

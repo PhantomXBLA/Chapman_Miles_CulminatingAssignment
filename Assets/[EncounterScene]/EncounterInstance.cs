@@ -35,7 +35,7 @@ public class EncounterInstance : MonoBehaviour
     private int turnNumber = 0;
 
     [SerializeField]
-    private ICharacter currentCharacterTurn;
+    public ICharacter currentCharacterTurn;
 
 
     // Start is called before the first frame update
@@ -54,17 +54,21 @@ public class EncounterInstance : MonoBehaviour
         {
             onPlayerTurnEnd.Invoke(player);
             currentCharacterTurn = enemy;
+            
+
         }
         else
         {
             
             currentCharacterTurn = player;
             onPlayerTurnBegin.Invoke(player);
+            
         }
         turnNumber++;
 
         onCharacterTurnBegin.Invoke(currentCharacterTurn);
         currentCharacterTurn.TakeTurn(this);
+
     }
 
     public void EndBattle()
