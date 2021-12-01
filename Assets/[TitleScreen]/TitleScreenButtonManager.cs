@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TitleScreenButtonManager : MonoBehaviour
 {
@@ -72,13 +73,16 @@ public class TitleScreenButtonManager : MonoBehaviour
     {
         Debug.Log("1");
         CassetteButton.Play();
-        StartCoroutine(WaitForSeconds());
+        StartCoroutine(WaitToPlayOtherSFX());
+        StartCoroutine(WaitToStartGame());
     }
 
     void ContinueButtonPressed()
     {
         Debug.Log("2");
         CassetteButton.Play();
+        StartCoroutine(WaitToPlayOtherSFX());
+        StartCoroutine(WaitToLoadGame());
 
     }
 
@@ -110,9 +114,34 @@ public class TitleScreenButtonManager : MonoBehaviour
 
     }
 
-    IEnumerator WaitForSeconds()
+    IEnumerator WaitToPlayOtherSFX()
     {
         yield return new WaitForSeconds(.4f);
         CassetteStart.Play();
+    }
+
+    IEnumerator WaitToStartGame()
+    {
+        PlayerPrefs.SetInt("NewGameFlag", 1);
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(1);
+
+    }
+
+    IEnumerator WaitToLoadGame()
+    {
+
+        if (PlayerPrefs.HasKey("xPos") && PlayerPrefs.HasKey("yPos")) // do stuff if playerprefs has data to load
+        {
+            PlayerPrefs.SetInt("NewGameFlag", 0);
+            yield return new WaitForSeconds(5f);
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            Debug.Log("no saved data found!");
+        }
+
+
     }
 }

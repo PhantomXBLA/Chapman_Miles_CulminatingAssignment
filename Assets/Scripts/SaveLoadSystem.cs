@@ -15,6 +15,11 @@ public class SaveLoadSystem : MonoBehaviour
         SaveButton.GetComponent<Button>().onClick.AddListener(OnSaveButtonPressed);
         LoadButton.GetComponent<Button>().onClick.AddListener(OnLoadButtonPressed);
 
+        if (PlayerPrefs.GetInt("NewGameFlag") == 0)
+        {
+            OnLoadButtonPressed();
+        }
+
     }
 
     // Update is called once per frame
