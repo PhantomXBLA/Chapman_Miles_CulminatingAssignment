@@ -7,6 +7,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool inRangeOfNPC = false;
     public GameObject NPC;
+
+    public GameObject overworldNPC1;
+    public GameObject overworldNPC2;
+    public GameObject overworldNPC3;
+    public GameObject overworldNPC4;
+
     // Start is called before the first frame update
     void Start()
     {
