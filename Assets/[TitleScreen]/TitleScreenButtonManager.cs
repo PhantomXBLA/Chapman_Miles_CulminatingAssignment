@@ -13,11 +13,19 @@ public class TitleScreenButtonManager : MonoBehaviour
     GameObject CreditsButton;
     GameObject QuitButton;
 
+    public Image blackFade;
+
     public AudioSource CassetteButton;
     public AudioSource CassetteStart;
     // Start is called before the first frame update
     void Start()
     {
+        //For fading from black on stage opening
+        blackFade.canvasRenderer.SetAlpha(1.0f);
+
+        // For Fading to black
+        blackFade.canvasRenderer.SetAlpha(0.0f);
+
         GameObject[] allButtons = UnityEngine.Object.FindObjectsOfType<GameObject>();
 
         foreach (GameObject go in allButtons)
@@ -75,6 +83,7 @@ public class TitleScreenButtonManager : MonoBehaviour
         CassetteButton.Play();
         StartCoroutine(WaitToPlayOtherSFX());
         StartCoroutine(WaitToStartGame());
+        StartCoroutine(DelayAndFadeToBlack());
     }
 
     void ContinueButtonPressed()
@@ -83,6 +92,7 @@ public class TitleScreenButtonManager : MonoBehaviour
         CassetteButton.Play();
         StartCoroutine(WaitToPlayOtherSFX());
         StartCoroutine(WaitToLoadGame());
+        StartCoroutine(DelayAndFadeToBlack());
 
     }
 
@@ -114,6 +124,19 @@ public class TitleScreenButtonManager : MonoBehaviour
 
     }
 
+    public void fadeToBlack()
+    {
+        //This is changing the FadeIn/Out image to 1 (0 = invisible / 1 = visible)
+        // 2nd argument is the amount of time the fade takes to complete
+        blackFade.CrossFadeAlpha(1, 3.0f, false);
+
+    }
+
+    public void fadeFromBlack()
+    {
+        blackFade.CrossFadeAlpha(0, 2, false);
+    }
+
     IEnumerator WaitToPlayOtherSFX()
     {
         yield return new WaitForSeconds(.4f);
@@ -143,5 +166,18 @@ public class TitleScreenButtonManager : MonoBehaviour
         }
 
 
+    }
+
+    IEnumerator DelayAndFadeToBlack()
+    {
+        //wait 2 seconds for tape sound
+        yield return new WaitForSeconds(2);
+        fadeToBlack();
+    }
+
+    IEnumerator DelayAndFadeFromBlack()
+    {
+        yield return new WaitForSeconds(4);
+        fadeFromBlack();
     }
 }
