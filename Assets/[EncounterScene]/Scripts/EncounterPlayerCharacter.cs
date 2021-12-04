@@ -9,6 +9,16 @@ public class EncounterPlayerCharacter : ICharacter
     [SerializeField]
     private EncounterInstance myEncounter;
 
+    public MonsterDatabase Mourntooth;
+    Ability[] scendoAttacks;
+
+    private void Start()
+    {
+        this.GetComponent<SpriteRenderer>().sprite = Mourntooth.BackSprite;
+        scendoAttacks = Mourntooth.MonsterAbilities;
+
+    }
+
     public override void TakeTurn(EncounterInstance encounter)
     {
         myEncounter = encounter;
@@ -19,7 +29,7 @@ public class EncounterPlayerCharacter : ICharacter
     public void UseAbility(int slot)
     {
 
-        abilities[slot].Cast(this, opponent);
+        scendoAttacks[slot].Cast(this, opponent);
         myEncounter.AdvanceTurns();
 
 

@@ -109,11 +109,13 @@ public class EncounterUI : MonoBehaviour
             if (go.name == "Move1")
             {
                 move1 = go;
+                move1.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[0].name;
             }
 
             else if (go.name == "Move2")
             {
                 move2 = go;
+                move2.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[1].name;
             }
         }
 

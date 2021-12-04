@@ -9,7 +9,10 @@ public class MonsterDatabase : ScriptableObject
 {
 
     [SerializeField]
-    string name;
+    string monsterName;
+
+    [SerializeField]
+    int level;
 
     [TextArea]
     [SerializeField]
@@ -30,6 +33,9 @@ public class MonsterDatabase : ScriptableObject
     [SerializeField]
     int speed; //decides who attacks first
 
+    [SerializeField]
+    Ability[] monsterAbilities;
+
     //Still need to create sprites
     //May only need from sprite for enemy monsters
     [SerializeField]
@@ -41,9 +47,9 @@ public class MonsterDatabase : ScriptableObject
 
     //C# properties. Similar to using a Getter function
     //Need monster name available outside of the class
-    public string Name
+    public string MonsterName
     {
-        get { return name; } 
+        get { return monsterName; } 
     }
 
     public string Description
@@ -70,6 +76,27 @@ public class MonsterDatabase : ScriptableObject
     {
         get { return speed; }
     }
+
+    public int Level
+    {
+        get { return level; }
+    }
+
+    public Sprite FrontSprite
+    {
+        get { return frontSprite; }
+    }
+
+    public Sprite BackSprite
+    {
+        get { return backSprite; }
+    }
+
+    public Ability[] MonsterAbilities
+    {
+        get { return monsterAbilities; }
+    }
+    
 
 }
 

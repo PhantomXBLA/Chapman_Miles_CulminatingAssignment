@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class ICharacter : MonoBehaviour
 {
-    [SerializeField]
-    protected Ability[] abilities;
+    //[SerializeField]
+    //protected Ability[] abilities;
 
     public abstract void TakeTurn(EncounterInstance encounter);
 
