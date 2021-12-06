@@ -178,7 +178,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3570050474257231487}
+  - component: {fileID: 2066376097359055252}
   - component: {fileID: 8272951818008796878}
   m_Layer: 0
   m_Name: HP Bar inside white
@@ -187,20 +187,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3570050474257231487
-Transform:
+--- !u!224 &2066376097359055252
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915993065469532925}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.117, y: 0.373, z: -91}
+  m_LocalPosition: {x: 0, y: 0, z: -91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1323457048206724587}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -4.617, y: 0.373}
+  m_SizeDelta: {x: 8.39, y: 0.69}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &8272951818008796878
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -541,7 +546,7 @@ RectTransform:
   - {fileID: 1323457047739671165}
   - {fileID: 1323457046994824164}
   - {fileID: 5739417786597470359}
-  - {fileID: 3570050474257231487}
+  - {fileID: 2066376097359055252}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

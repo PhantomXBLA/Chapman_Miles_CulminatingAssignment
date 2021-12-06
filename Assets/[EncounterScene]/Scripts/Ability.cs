@@ -9,6 +9,12 @@ public class Ability : ScriptableObject
     public new string name;
 
     [SerializeField]
+    public int damage;
+
+    [SerializeField]
+    public int accuracy;
+
+    [SerializeField]
     private string description;
 
     [SerializeField]

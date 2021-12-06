@@ -16,7 +16,8 @@ MonoBehaviour:
   level: 0
   description: 
   type: 3
-  totalHp: 0
+  totalHp: 65
+  currentHp: 0
   attack: 0
   defense: 0
   speed: 0

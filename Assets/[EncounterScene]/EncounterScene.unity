@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b72579cabae414ebbe66f30e5182d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScendoMonster: {fileID: 11400000, guid: 782ee7357c28e044d9f118967bb4d909, type: 2}
+  ScendoMonster: {fileID: 11400000, guid: fb9fa3ccdb4d92f45ac75e57bb414c7f, type: 2}
   opponent: {fileID: 1215038144}
   myEncounter: {fileID: 1009988983}
   encounterText: {fileID: 680560517}
@@ -254,6 +254,10 @@ PrefabInstance:
     - target: {fileID: 1323457046994824167, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323457047739671162, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1323457048206724566, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_Name
@@ -350,6 +354,10 @@ PrefabInstance:
     - target: {fileID: 1323457048206724587, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2066376097359055252, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8.805
       objectReference: {fileID: 0}
     - target: {fileID: 3475245318439003244, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_text
@@ -1721,6 +1729,10 @@ PrefabInstance:
       propertyPath: m_text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1323457047739671162, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1323457047739671164, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1828,6 +1840,10 @@ PrefabInstance:
     - target: {fileID: 1323457048206724587, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2066376097359055252, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8.805
       objectReference: {fileID: 0}
     - target: {fileID: 3475245318439003244, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_text
