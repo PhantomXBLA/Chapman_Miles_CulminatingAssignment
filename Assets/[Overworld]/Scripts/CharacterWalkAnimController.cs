@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum CardinalDirection
 {
@@ -22,6 +23,7 @@ public class CharacterWalkAnimController : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rigidbody;
 
+    private bool isMoving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +55,8 @@ public class CharacterWalkAnimController : MonoBehaviour
             {
                 facing = CardinalDirection.East;
             }
+
+            isMoving = true;
         }
         else
         {
@@ -64,10 +68,39 @@ public class CharacterWalkAnimController : MonoBehaviour
             {
                 facing = CardinalDirection.North;
             }
+            isMoving = true;
+        }
+
+        if ((velocity.y == 0) && (velocity.x == 0))
+        {
+            isMoving = false;
         }
 
 
         animator.SetBool("isWalking", isWalking);
         animator.SetInteger("walkDirection", (int)facing); //walk up
     }
+
+
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        //Player cannot encounter something unless that are moving
+        if ((other.tag == "Tall Grass") && (isMoving == true))
+        {
+            //A 1/100 chance to encounter something if the player stays in the Tall Grass
+            //for any amount of time.
+            if (Random.Range(1, 101) <= 1)
+            {
+                Debug.Log("A wild scendo appeared");
+                //Freeze the players movement until battle state is false.
+                //Play encounter animation and music
+                //Need to trigger battle state
+                SceneManager.LoadScene("EncounterScene");
+            }
+        }
+    }
+
+
+    
 }

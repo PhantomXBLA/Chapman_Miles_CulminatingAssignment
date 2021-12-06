@@ -47,7 +47,6 @@ public class OverworldAIEncounterBehaviour : MonoBehaviour
             //turn off the space bar icon
             spacebarIcon.SetActive(false);
             
-
             StartCoroutine(DelayBeforeEncounter());
         }
 
@@ -96,9 +95,9 @@ public class OverworldAIEncounterBehaviour : MonoBehaviour
     IEnumerator DelayBeforeEncounter()
     {
         //First the text prints
-        //And we give the player 5 seconds to read it
+        //And we give the player 2.5 seconds to read it
         Debug.Log("DelayBeforeEncounter has started");
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(2.5f);
         
         
         //play the button press
@@ -108,8 +107,6 @@ public class OverworldAIEncounterBehaviour : MonoBehaviour
         StartCoroutine(WaitToStartEncounter());
         StartCoroutine(DelayAndFadeToBlack());
         StartCoroutine(ReActivateMovementAndAnimations());
- 
-
         //load scene
 
     }

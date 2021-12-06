@@ -44,30 +44,4 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if ((other.tag == "Tall Grass") && (moveSpeed < 1.5f)) //try new standingStill bool
-        {
-            //A 1/1000 chance to encounter something if the player stays in the Tall Grass
-            //for any amount of time.
-            if (Random.Range(1, 101) <= 10)
-            {
-                Debug.Log("A wild something something appeared");
-                //Freeze the players movement until battle state is false.
-                //Play encounter animation and music
-                //Need to trigger battle state
-                //SceneManager.LoadScene("Battle Scene");
-            }
-            //if battle/random encounter scene is active, cannot encounter anything
-        }
-
-
-        
-
-    }
-
-
-
-
 }
