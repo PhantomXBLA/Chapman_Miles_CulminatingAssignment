@@ -35,13 +35,17 @@ public class AICharacter : ICharacter
     int moveToUse = 0;
 
 
-    
+    GameObject AIHealthBar;
+    public BattleManager battleManager;
+    public EncounterUI encounterUI;
 
 
     private void Start()
     {
         this.GetComponent<SpriteRenderer>().sprite = ScendoMonster.FrontSprite;
         scendoAttacks = ScendoMonster.MonsterAbilities;
+        ScendoMonster.CurrentHp = ScendoMonster.TotalHp;
+        AIHealthBar = GameObject.Find("EnemyHealthBar");
     }
 
     private IEnumerator animateTextCoroutineRef = null;
@@ -50,16 +54,28 @@ public class AICharacter : ICharacter
 
     public override void TakeTurn(EncounterInstance encounter)
     {
-        myEncounter = encounter;
-        opponent = myEncounter.Player;
-        StartCoroutine(DelayDecision(myEncounter));
+        //myEncounter = encounter;
+        //opponent = myEncounter.Player;
+        //StartCoroutine(DelayDecision(myEncounter));
 
     }
 
     public void UseAbility(int slot)
     {
+
         scendoAttacks[slot].Cast(this, opponent);
+        //scendoAttacks[slot].Cast(this, opponent);
         //myEncounter.AdvanceTurns();
+
+    }
+
+    public void TakeDamage(int damageRecieved)
+    {
+        ScendoMonster.CurrentHp -= damageRecieved;
+        Debug.Log("damage taken: " + damageRecieved);
+        Debug.Log("HP remaining: " + ScendoMonster.CurrentHp);
+        AIHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
+    
     }
 
 
@@ -149,6 +165,8 @@ public class AICharacter : ICharacter
 
 
         animateTextCoroutineRef = AnimateTextCoroutine( "Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
+        
+        abilityPanel.SetActive(false);
         abilityPanel.SetActive(false);
         mainPanel.SetActive(false);
         StartCoroutine(animateTextCoroutineRef);
@@ -164,6 +182,41 @@ public class AICharacter : ICharacter
         myEncounter.AdvanceTurns(); // recomment out if no work :\
 
 
+    }
+
+    public IEnumerator DelayDecisionBetter()
+    {
+
+        Debug.Log("Enemy taking turn");
+
+        //UseAbility(moveToUse);
+
+
+
+       
+        animateTextCoroutineRef = AnimateTextCoroutine("Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
+        encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse].damage);
+        abilityPanel.SetActive(false);
+        mainPanel.SetActive(false);
+
+        StartCoroutine(animateTextCoroutineRef);
+
+
+        if (battleManager.playerFaster == false)
+        {
+            yield return new WaitForSeconds(2.0f);
+            StartCoroutine(encounterUI.DoAttack(encounterUI.chosenMove, encounterUI.chosenMoveName));
+        }
+        
+        else if(battleManager.playerFaster == true)
+        {
+            yield return new WaitForSeconds(2.0f);
+            mainPanel.SetActive(true);
+            encounterUI.ResetTurn();
+        }
+
+
+        
     }
 
     IEnumerator AnimateTextCoroutine(string message)

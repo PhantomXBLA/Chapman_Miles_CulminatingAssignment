@@ -20,7 +20,7 @@ MonoBehaviour:
   currentHp: 0
   attack: 0
   defense: 0
-  speed: 0
+  speed: 45
   monsterAbilities:
   - {fileID: 11400000, guid: a5e7f2cc2de1da4419a329ff19854461, type: 2}
   - {fileID: 11400000, guid: 7804b0902ff4c5e459c33d7f6778f106, type: 2}

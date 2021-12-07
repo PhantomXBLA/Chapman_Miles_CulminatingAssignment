@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scratch
   m_EditorClassIdentifier: 
   name: Scratch
-  damage: 35
+  damage: 5
   accuracy: 0
   description: Scratch the enemy
   effects:
