@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    
+
     MonsterDatabase Mourntooth;
     MonsterDatabase ScendoOpponent;
 
@@ -48,4 +48,7 @@ public class BattleManager : MonoBehaviour
     {
         
     }
+
+
+
 }

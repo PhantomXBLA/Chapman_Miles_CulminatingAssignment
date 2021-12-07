@@ -11,6 +11,7 @@ TagManager:
   - Dirt
   - Water
   - Background
+  - Livar
   layers:
   - Default
   - TransparentFX

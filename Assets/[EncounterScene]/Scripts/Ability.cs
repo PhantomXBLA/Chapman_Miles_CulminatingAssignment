@@ -20,6 +20,7 @@ public class Ability : ScriptableObject
     [SerializeField]
     public IEffect[] effects;
 
+
     public void Cast(ICharacter self, ICharacter other)
     {
         Debug.Log("Used: " + name);

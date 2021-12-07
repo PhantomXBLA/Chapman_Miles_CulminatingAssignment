@@ -25,6 +25,7 @@ public class EncounterUI : MonoBehaviour
     GameObject move1, move2;
     GameObject fightButton;
 
+
     [SerializeField]
     float timeBetweenCharacters = 0.1f;
 
@@ -168,14 +169,14 @@ public class EncounterUI : MonoBehaviour
 
         if (battleManager.playerFaster == true)
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(4.0f);
             //start opponents turn
             StartCoroutine(enemy.GetComponent<AICharacter>().DelayDecisionBetter());
         }
 
         else
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(4.0f);
             mainPanel.SetActive(true);
             //reset panel
             ResetTurn();
