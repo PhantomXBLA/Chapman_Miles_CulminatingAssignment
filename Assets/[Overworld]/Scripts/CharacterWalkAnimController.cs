@@ -93,9 +93,19 @@ public class CharacterWalkAnimController : MonoBehaviour
             if (Random.Range(1, 101) <= 1)
             {
                 Debug.Log("A wild scendo appeared");
-                //Freeze the players movement until battle state is false.
-                //Play encounter animation and music
-                //Need to trigger battle state
+
+                PlayerPrefs.SetInt("EncounterCheck", 0); // 0 = wild encounter, 1 = trainer encounter
+
+
+                if (Random.Range(1, 11) <= 5)
+                {
+                    PlayerPrefs.SetString("RandomEncounter", "Parchpaw");
+                }
+                else if (Random.Range(1, 11) >= 6)
+                {
+                    PlayerPrefs.SetString("RandomEncounter", "Dampurr");
+                }
+                Debug.Log(PlayerPrefs.GetString("RandomEncounter"));
                 SceneManager.LoadScene("EncounterScene");
             }
         }

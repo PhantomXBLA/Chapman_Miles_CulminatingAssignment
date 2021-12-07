@@ -15,7 +15,7 @@ public class AttackAnimationController : MonoBehaviour
     {
         leafBlastAnim.SetActive(false);
         slapAnim.SetActive(false);
-        scratchAnim.SetActive(false);
+        //scratchAnim.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,10 +35,10 @@ public class AttackAnimationController : MonoBehaviour
         StartCoroutine(SlapAnim());
     }
 
-    public void OnScratchAttackAnim()
-    {
-        StartCoroutine(ScratchAnim());
-    }
+    //public void OnScratchAttackAnim()
+    //{
+    //    StartCoroutine(ScratchAnim());
+    //}
 
 
 
@@ -59,11 +59,11 @@ public class AttackAnimationController : MonoBehaviour
         slapAnim.SetActive(false); // deactivate animation
     }
 
-    IEnumerator ScratchAnim()
-    {
-        yield return new WaitForSeconds(1.0f); //for text to print
-        scratchAnim.SetActive(true); //Play animation
-        yield return new WaitForSeconds(4.0f); //wait for animation to finish
-        scratchAnim.SetActive(false); // deactivate animation
-    }
+    //IEnumerator ScratchAnim()
+    //{
+    //    yield return new WaitForSeconds(1.0f); //for text to print
+    //    scratchAnim.SetActive(true); //Play animation
+    //    yield return new WaitForSeconds(4.0f); //wait for animation to finish
+    //    scratchAnim.SetActive(false); // deactivate animation
+    //}
 }

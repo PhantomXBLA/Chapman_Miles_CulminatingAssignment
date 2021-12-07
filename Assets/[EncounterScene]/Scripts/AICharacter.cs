@@ -42,10 +42,7 @@ public class AICharacter : ICharacter
 
     private void Start()
     {
-        this.GetComponent<SpriteRenderer>().sprite = ScendoMonster.FrontSprite;
-        scendoAttacks = ScendoMonster.MonsterAbilities;
-        ScendoMonster.CurrentHp = ScendoMonster.TotalHp;
-        AIHealthBar = GameObject.Find("EnemyHealthBar");
+
     }
 
     private IEnumerator animateTextCoroutineRef = null;
@@ -58,6 +55,14 @@ public class AICharacter : ICharacter
         //opponent = myEncounter.Player;
         //StartCoroutine(DelayDecision(myEncounter));
 
+    }
+
+    public void loadScendo()
+    {
+        this.GetComponent<SpriteRenderer>().sprite = ScendoMonster.FrontSprite;
+        scendoAttacks = ScendoMonster.MonsterAbilities;
+        ScendoMonster.CurrentHp = ScendoMonster.TotalHp;
+        AIHealthBar = GameObject.Find("EnemyHealthBar");
     }
 
     public void UseAbility(int slot)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 //Will prompt the user what to do, and enable/disable UI elements at different times
 public class EncounterUI : MonoBehaviour
@@ -24,6 +25,7 @@ public class EncounterUI : MonoBehaviour
     //These are buttons
     GameObject move1, move2;
     GameObject fightButton;
+    GameObject runButton;
 
 
     [SerializeField]
@@ -71,9 +73,14 @@ public class EncounterUI : MonoBehaviour
             {
                 fightButton = go;
             }
+            else if(go.name == "RunButton")
+            {
+                runButton = go;
+            }
         }
 
         fightButton.GetComponent<Button>().onClick.AddListener(OnFightButtonPressed);
+        runButton.GetComponent<Button>().onClick.AddListener(OnRunButtonPressed);
 
         abilityPanel.SetActive(false);
         PlayerHealthBar = GameObject.Find("PlayerHealthBar");
@@ -156,6 +163,11 @@ public class EncounterUI : MonoBehaviour
 
         Debug.Log("button pressed");
 
+    }
+
+    public void OnRunButtonPressed()
+    {
+        SceneManager.LoadScene("Overworld");
     }
 
     public IEnumerator DoAttack(int move, string moveName)

@@ -16,6 +16,18 @@ public class HealthBarScript : MonoBehaviour
     void Start()
     {
         
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void LoadHealthBar()
+    {
         monsterName = this.gameObject.transform.GetChild(1).GetComponent<TMPro.TextMeshPro>();
         monsterLevel = this.gameObject.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>();
         HealthBarSprite = this.gameObject.transform.GetChild(3).gameObject;
@@ -23,7 +35,7 @@ public class HealthBarScript : MonoBehaviour
         if (this.gameObject.name == "PlayerHealthBar")
         {
             monster = GameObject.Find("Mourntooth").GetComponent<EncounterPlayerCharacter>().Mourntooth;
-            
+
         }
 
         else if (this.gameObject.name == "EnemyHealthBar")
@@ -34,16 +46,7 @@ public class HealthBarScript : MonoBehaviour
 
         monsterName.text = monster.MonsterName;
         monsterLevel.text = ("Lvl: " + monster.Level.ToString());
-
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
 
     public void UpdateHealthBar()
     {
