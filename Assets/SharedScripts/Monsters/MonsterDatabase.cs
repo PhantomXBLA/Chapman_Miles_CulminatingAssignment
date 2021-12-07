@@ -8,6 +8,7 @@ using UnityEngine;
 public class MonsterDatabase : ScriptableObject
 {
 
+
     [SerializeField]
     string monsterName;
 
@@ -23,6 +24,9 @@ public class MonsterDatabase : ScriptableObject
 
     [SerializeField]
     int totalHp;
+
+    [SerializeField]
+    int currentHp;
 
     [SerializeField]
     int attack;
@@ -62,6 +66,8 @@ public class MonsterDatabase : ScriptableObject
         get { return totalHp; }
     }
 
+    public int CurrentHp { get; set; }
+
     public int Attack
     {
         get { return attack; }
@@ -96,9 +102,10 @@ public class MonsterDatabase : ScriptableObject
     {
         get { return monsterAbilities; }
     }
-    
 
 }
+
+
 
 
 

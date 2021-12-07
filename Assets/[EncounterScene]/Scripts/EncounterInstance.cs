@@ -48,25 +48,26 @@ public class EncounterInstance : MonoBehaviour
 
     public void AdvanceTurns()
     {
-        onCharacterTurnEnd.Invoke(currentCharacterTurn);
+        
 
         if (currentCharacterTurn == player)
         {
             onPlayerTurnEnd.Invoke(player);
             currentCharacterTurn = enemy;
-            
+            onCharacterTurnBegin.Invoke(currentCharacterTurn);
+
 
         }
-        else
+        else if(currentCharacterTurn == enemy)
         {
-            
+            onCharacterTurnEnd.Invoke(currentCharacterTurn);
             currentCharacterTurn = player;
             onPlayerTurnBegin.Invoke(player);
             
         }
         turnNumber++;
 
-        onCharacterTurnBegin.Invoke(currentCharacterTurn);
+        //onCharacterTurnBegin.Invoke(currentCharacterTurn);
         currentCharacterTurn.TakeTurn(this);
 
     }

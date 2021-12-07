@@ -12,6 +12,9 @@ public class EncounterPlayerCharacter : ICharacter
     public MonsterDatabase Mourntooth;
     Ability[] scendoAttacks;
 
+    public BattleManager battleManager;
+    public EncounterUI encounterUI;
+
     private void Start()
     {
         this.GetComponent<SpriteRenderer>().sprite = Mourntooth.BackSprite;
@@ -28,9 +31,11 @@ public class EncounterPlayerCharacter : ICharacter
 
     public void UseAbility(int slot)
     {
-
         scendoAttacks[slot].Cast(this, opponent);
-        myEncounter.AdvanceTurns();
+
+        //scendoAttacks[slot].Cast(this, opponent);
+        //myEncounter.AdvanceTurns();
+
 
 
         //Add move animation for move here

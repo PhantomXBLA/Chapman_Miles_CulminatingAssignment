@@ -16,10 +16,11 @@ MonoBehaviour:
   level: 0
   description: 
   type: 2
-  totalHp: 0
+  totalHp: 90
+  currentHp: 0
   attack: 0
   defense: 0
-  speed: 0
+  speed: 35
   monsterAbilities:
   - {fileID: 11400000, guid: 959ded1150f5b414cac96c2839dced84, type: 2}
   frontSprite: {fileID: 21300000, guid: aab0ce89e20e24e4f873cc583825cdc5, type: 3}

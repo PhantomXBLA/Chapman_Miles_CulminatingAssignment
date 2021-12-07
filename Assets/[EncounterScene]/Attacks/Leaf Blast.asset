@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Leaf Blast
   m_EditorClassIdentifier: 
   name: Leaf Blast
+  damage: 45
+  accuracy: 0
   description: I have no idea yet
   effects:
   - {fileID: 11400000, guid: f8a9961ef1a91a240b9affe11b5163a1, type: 2}

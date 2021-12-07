@@ -23,9 +23,16 @@ public class EncounterUI : MonoBehaviour
 
     //These are buttons
     GameObject move1, move2;
+    GameObject fightButton;
 
     [SerializeField]
     float timeBetweenCharacters = 0.1f;
+
+    public BattleManager battleManager;
+    GameObject PlayerHealthBar;
+
+    public int chosenMove;
+    public string chosenMoveName;
 
 
     //This is a reference to keep track of our coroutine
@@ -55,23 +62,24 @@ public class EncounterUI : MonoBehaviour
         
         encounter.onEnemyTurnEnd.AddListener(EnablePlayerUI);
 
+        GameObject[] allButtons = UnityEngine.Object.FindObjectsOfType<GameObject>();
 
+        foreach (GameObject go in allButtons)
+        {
+            if (go.name == "FightButton")
+            {
+                fightButton = go;
+            }
+        }
 
-
+        fightButton.GetComponent<Button>().onClick.AddListener(OnFightButtonPressed);
 
         abilityPanel.SetActive(false);
+        PlayerHealthBar = GameObject.Find("PlayerHealthBar");
+        player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.TotalHp;
+
+
     }
-
-    //void AnnounceCharacterTurnBegin(ICharacter characterTurn)
-    //{
-    //    if (animateTextCoroutineRef != null)
-    //    {
-    //        StopCoroutine(animateTextCoroutineRef);
-    //    }
-
-    //    animateTextCoroutineRef = AnimateTextCoroutine("It is " + characterTurn.name + "'s turn.");
-    //    StartCoroutine(animateTextCoroutineRef);
-    //}
 
     void EnablePlayerUI(ICharacter characterTurn)
     {
@@ -85,19 +93,13 @@ public class EncounterUI : MonoBehaviour
     }
 
 
-    //public void ResetPlayerTurn(ICharacter characterTurn)
-    //{
-    //    animateTextCoroutineRef = AnimateTextCoroutine("What will " + characterTurn.name + " do?");
-    //}
-
-
 
 
     ////---------------------------------------------------------------------- Panel Control via MAIN BUTTONS --------------------------------------------------
-    public void OnFightButtonPressed(ICharacter characterTurn)
+    public void OnFightButtonPressed()
     {
         StopCoroutine((animateTextCoroutineRef));
-        animateTextCoroutineRef = AnimateTextCoroutine("What will " + characterTurn.name + " do?");
+        animateTextCoroutineRef = AnimateTextCoroutine("What will " + player.GetComponent<EncounterPlayerCharacter>().Mourntooth.name + " do?");
         StartCoroutine(animateTextCoroutineRef);
         abilityPanel.SetActive(true);
         mainPanel.SetActive(false);
@@ -119,24 +121,27 @@ public class EncounterUI : MonoBehaviour
             }
         }
 
+        move1.GetComponent<Button>().onClick.RemoveAllListeners();
+        move1.GetComponent<Button>().onClick.AddListener(delegate{OnAttackButtonPressed(0,move1.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text);});
 
-        move1.GetComponent<Button>().onClick.AddListener(delegate { OnAttackButtonPressed(player.GetComponent<EncounterPlayerCharacter>(), 0, 
-        move1.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text); });
+        move2.GetComponent<Button>().onClick.RemoveAllListeners();
+        move2.GetComponent<Button>().onClick.AddListener(delegate{OnAttackButtonPressed(0,move2.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text);});
 
-        move2.GetComponent<Button>().onClick.AddListener(delegate { OnAttackButtonPressed(player.GetComponent<EncounterPlayerCharacter>(), 1, 
-        move2.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text); });
+       fightButton.GetComponent<Button>().onClick.RemoveAllListeners();
+
     }
 
     //----------------------------------------------------------------------- Panel Control via ABILITY BUTTONS --------------------------------------------------
 
-    public void OnAttackButtonPressed(ICharacter characterTurn, int move, string moveName)
+        public void OnAttackButtonPressed(int move, string moveName)
     {
-        StopCoroutine((animateTextCoroutineRef));
-        player.GetComponent<EncounterPlayerCharacter>().UseAbility(move);
-        animateTextCoroutineRef = AnimateTextCoroutine(characterTurn.name + " used " + moveName + "!");
-        abilityPanel.SetActive(false);
-        mainPanel.SetActive(false);
-        StartCoroutine(animateTextCoroutineRef);
+        //StopCoroutine((animateTextCoroutineRef));
+        //player.GetComponent<EncounterPlayerCharacter>().UseAbility(move);
+        //animateTextCoroutineRef = AnimateTextCoroutine(characterTurn.name + " used " + moveName + "!");
+        //enemy.GetComponent<AICharacter>().TakeDamage(player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[move].damage);
+        //abilityPanel.SetActive(false);
+        //mainPanel.SetActive(false);
+        //StartCoroutine(animateTextCoroutineRef);
 
         //StartCoroutine(DelayNextTurn());
 
@@ -144,14 +149,56 @@ public class EncounterUI : MonoBehaviour
 
 
 
+        chosenMove = move;
+        chosenMoveName = moveName;
+        battleManager.TurnStart(move, moveName);
+
+        Debug.Log("button pressed");
+
     }
 
+    public IEnumerator DoAttack(int move, string moveName)
+    {
+        StopCoroutine(animateTextCoroutineRef);
+        animateTextCoroutineRef = AnimateTextCoroutine(player.GetComponent<EncounterPlayerCharacter>().Mourntooth.name + " used " + moveName + "!");
+        enemy.GetComponent<AICharacter>().TakeDamage(player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[move].damage);
+        abilityPanel.SetActive(false);
+        mainPanel.SetActive(false);
+        StartCoroutine(animateTextCoroutineRef);
 
-    //IEnumerator DelayNextTurn()
-    //{
-    //    yield return new WaitForSeconds(3.0f);
-    //    encounter.AdvanceTurns();
-    //}
+        if (battleManager.playerFaster == true)
+        {
+            yield return new WaitForSeconds(2.0f);
+            //start opponents turn
+            StartCoroutine(enemy.GetComponent<AICharacter>().DelayDecisionBetter());
+        }
+
+        else
+        {
+            yield return new WaitForSeconds(2.0f);
+            mainPanel.SetActive(true);
+            //reset panel
+            ResetTurn();
+        }
+    }
+
+    public void ResetTurn()
+    {
+        fightButton.GetComponent<Button>().onClick.RemoveListener(OnFightButtonPressed);
+        fightButton.GetComponent<Button>().onClick.AddListener(OnFightButtonPressed);
+        Debug.Log("----------TURN RESET----------");
+
+        animateTextCoroutineRef = AnimateTextCoroutine("What will " + player.GetComponent<EncounterPlayerCharacter>().Mourntooth.name + " do?");
+        StartCoroutine(animateTextCoroutineRef);
+    }
+
+    public void TakeDamage(int damageRecieved)
+    {
+        player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp -= damageRecieved;
+        Debug.Log("damage taken: " + damageRecieved);
+        Debug.Log("HP remaining: " + player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp);
+        PlayerHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
+    }
 
 
     IEnumerator AnimateTextCoroutine(string message)
