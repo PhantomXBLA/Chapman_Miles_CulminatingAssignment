@@ -140,7 +140,7 @@ public class TitleScreenButtonManager : MonoBehaviour
 
     public void fadeFromBlack()
     {
-        blackFade.CrossFadeAlpha(0, 2, false);
+        blackFade.CrossFadeAlpha(0, 1, false);
     }
 
     IEnumerator WaitToPlayOtherSFX()
@@ -183,7 +183,7 @@ public class TitleScreenButtonManager : MonoBehaviour
 
     IEnumerator DelayAndFadeFromBlack()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(.5f);
         fadeFromBlack();
     }
 }

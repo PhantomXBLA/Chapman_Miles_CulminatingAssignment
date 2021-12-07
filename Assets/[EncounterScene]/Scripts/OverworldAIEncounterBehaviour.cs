@@ -63,7 +63,7 @@ public class OverworldAIEncounterBehaviour : MonoBehaviour
     IEnumerator DelayAndFadeToBlack()
     {
         //wait 2 seconds for tape sound
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2.5f);
         fadeToBlack();
 
         
@@ -81,6 +81,9 @@ public class OverworldAIEncounterBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(.4f);
         tapeSounds.clip = tapeSoundClips[1];
+        tapeSounds.Play();
+
+        tapeSounds.clip = tapeSoundClips[2];
         tapeSounds.Play();
     }
 
