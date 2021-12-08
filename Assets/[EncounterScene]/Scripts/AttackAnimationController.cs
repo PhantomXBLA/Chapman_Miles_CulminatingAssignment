@@ -5,17 +5,26 @@ using UnityEngine.UI;
 
 public class AttackAnimationController : MonoBehaviour
 {
+    [SerializeField]
+    List<AudioClip> attackSoundClips;
+
+    [SerializeField]
+    private AudioSource soundSource;
 
     public GameObject leafBlastAnim;
     public GameObject slapAnim;
     public GameObject scratchAnim;
+    public GameObject convalesceAnim;
+    public GameObject bubbleBlastAnim;
 
     // Start is called before the first frame update
     void Start()
     {
         leafBlastAnim.SetActive(false);
         slapAnim.SetActive(false);
-        //scratchAnim.SetActive(false);
+        scratchAnim.SetActive(false);
+        convalesceAnim.SetActive(false);
+        bubbleBlastAnim.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,10 +44,15 @@ public class AttackAnimationController : MonoBehaviour
         StartCoroutine(SlapAnim());
     }
 
-    //public void OnScratchAttackAnim()
-    //{
-    //    StartCoroutine(ScratchAnim());
-    //}
+    public void OnScratchAttackAnim()
+    {
+        StartCoroutine(ScratchAnim());
+    }
+
+    public void OnConvalesceAttackAnim()
+    {
+        StartCoroutine(ConvalesceAnim());
+    }
 
 
 
@@ -47,6 +61,8 @@ public class AttackAnimationController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f); //for text to print
         leafBlastAnim.SetActive(true); //Play animation
+        soundSource.clip = attackSoundClips[1];
+        soundSource.Play();
         yield return new WaitForSeconds(4.0f); //wait for animation to finish
         leafBlastAnim.SetActive(false); // deactivate animation
     }
@@ -55,15 +71,39 @@ public class AttackAnimationController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f); //for text to print
         slapAnim.SetActive(true); //Play animation
+        soundSource.clip = attackSoundClips[0];
+        soundSource.Play();
         yield return new WaitForSeconds(4.0f); //wait for animation to finish
         slapAnim.SetActive(false); // deactivate animation
     }
 
-    //IEnumerator ScratchAnim()
-    //{
-    //    yield return new WaitForSeconds(1.0f); //for text to print
-    //    scratchAnim.SetActive(true); //Play animation
-    //    yield return new WaitForSeconds(4.0f); //wait for animation to finish
-    //    scratchAnim.SetActive(false); // deactivate animation
-    //}
+    IEnumerator ScratchAnim()
+    {
+        yield return new WaitForSeconds(1.0f); //for text to print
+        scratchAnim.SetActive(true); //Play animation
+        soundSource.clip = attackSoundClips[2];
+        soundSource.Play();
+        yield return new WaitForSeconds(4.0f); //wait for animation to finish
+        scratchAnim.SetActive(false); // deactivate animation
+    }
+
+    IEnumerator ConvalesceAnim()
+    {
+        yield return new WaitForSeconds(1.0f); //for text to print
+        convalesceAnim.SetActive(true); //Play animation
+        soundSource.clip = attackSoundClips[3];
+        soundSource.Play();
+        yield return new WaitForSeconds(4.0f); //wait for animation to finish
+        convalesceAnim.SetActive(false); // deactivate animation
+    }
+
+    IEnumerator BubbleBlastAnim()
+    {
+        yield return new WaitForSeconds(1.0f); //for text to print
+        convalesceAnim.SetActive(true); //Play animation
+        soundSource.clip = attackSoundClips[3];
+        soundSource.Play();
+        yield return new WaitForSeconds(4.0f); //wait for animation to finish
+        convalesceAnim.SetActive(false); // deactivate animation
+    }
 }
