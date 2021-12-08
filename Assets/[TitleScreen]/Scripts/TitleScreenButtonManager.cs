@@ -107,7 +107,7 @@ public class TitleScreenButtonManager : MonoBehaviour
     {
         Debug.Log("4");
         CassetteButton.Play();
-
+        SceneManager.LoadScene("Help");
     }
 
     void CreditsButtonPressed()
@@ -122,6 +122,7 @@ public class TitleScreenButtonManager : MonoBehaviour
     {
         Debug.Log("6");
         CassetteButton.Play();
+        Application.Quit();
 
     }
 
