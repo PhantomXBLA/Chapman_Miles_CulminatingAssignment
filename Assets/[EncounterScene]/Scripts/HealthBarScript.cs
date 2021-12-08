@@ -54,6 +54,10 @@ public class HealthBarScript : MonoBehaviour
 
         HealthBarSprite.transform.localScale = new Vector2(hpBarXFinal, 1);
 
+        if(HealthBarSprite.transform.localScale.x <= 0)
+        {
+            HealthBarSprite.transform.localScale = new Vector2(0, 1);
+        }
 
         if (hpBarXFinal <= 0.5 && hpBarXFinal >= 0.26)
         {

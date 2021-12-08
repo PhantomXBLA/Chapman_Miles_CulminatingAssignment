@@ -103,6 +103,11 @@ public class MonsterDatabase : ScriptableObject
         get { return monsterAbilities; }
     }
 
+    public MonsterType ScendoType
+    {
+        get { return type; }
+    }
+
 }
 
 

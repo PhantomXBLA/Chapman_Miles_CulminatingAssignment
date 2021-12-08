@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: Convalesce
   m_EditorClassIdentifier: 
   name: Convalesce
+  damage: 0
+  accuracy: 0
   description: 'Heal 50% HP. '
+  type: 0
+  animation: {fileID: 8631413652508222549, guid: 4ed7993c7e018a2478fd53d274097adf, type: 3}
+  animationTransform: {x: -4.59, y: -1.14}
+  animationRotation: {x: -90, y: 0, z: 0}
   effects:
   - {fileID: 0}
   - {fileID: 0}
+  index: 3

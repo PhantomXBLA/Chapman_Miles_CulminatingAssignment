@@ -97,11 +97,11 @@ public class CharacterWalkAnimController : MonoBehaviour
                 PlayerPrefs.SetInt("EncounterCheck", 0); // 0 = wild encounter, 1 = trainer encounter
 
 
-                if (Random.Range(1, 11) <= 5)
+                if (Random.Range(1, 11) <= 1)
                 {
                     PlayerPrefs.SetString("RandomEncounter", "Parchpaw");
                 }
-                else if (Random.Range(1, 11) >= 6)
+                else if (Random.Range(1, 11) >= 2)
                 {
                     PlayerPrefs.SetString("RandomEncounter", "Dampurr");
                 }

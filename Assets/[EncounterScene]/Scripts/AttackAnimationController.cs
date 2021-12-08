@@ -66,6 +66,11 @@ public class AttackAnimationController : MonoBehaviour
         StartCoroutine(FlamethrowerAnim());
     }
 
+    public void OnAttackAnim(Ability move)
+    {
+        StartCoroutine(SpawnAndPlayAnim(move));
+    }
+
 
 
 
@@ -128,4 +133,20 @@ public class AttackAnimationController : MonoBehaviour
         yield return new WaitForSeconds(4.0f); //wait for animation to finish
         flamethrowerAnim.SetActive(false); // deactivate animation
     }
+
+    IEnumerator SpawnAndPlayAnim(Ability move)
+    {
+
+       
+
+        
+        yield return new WaitForSeconds(1.0f); //for text to print
+        GameObject animation = Instantiate(move.animation, move.animationTransform, Quaternion.Euler(move.animationRotation));
+        soundSource.clip = attackSoundClips[move.index];
+        soundSource.Play();
+        yield return new WaitForSeconds(4.0f); //wait for animation to finish
+        Destroy(animation.gameObject);
+    }
+
+
 }

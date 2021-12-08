@@ -5,8 +5,6 @@ using UnityEngine;
 public class AICharacter : ICharacter
 {
 
-    int health;
-
     public MonsterDatabase ScendoMonster;
     Ability[] scendoAttacks;
 
@@ -32,16 +30,18 @@ public class AICharacter : ICharacter
     [SerializeField]
     public GameObject abilityPanel;
 
-    int moveToUse = 0;
+    int moveToUse;
 
 
     GameObject AIHealthBar;
     public BattleManager battleManager;
     public EncounterUI encounterUI;
 
+    AttackAnimationController attackAnimController;
 
     private void Start()
     {
+        attackAnimController = GameObject.Find("AttackAnimationController").GetComponent<AttackAnimationController>();
 
     }
 
@@ -74,137 +74,53 @@ public class AICharacter : ICharacter
 
     }
 
-    public void TakeDamage(int damageRecieved)
+    public void TakeDamage(Ability move, int damageRecieved)
     {
-        ScendoMonster.CurrentHp -= damageRecieved;
-        Debug.Log("damage taken: " + damageRecieved);
+        TypeEffectiveness result = battleManager.checkTypeEffectiveness(move, ScendoMonster);
+
+        Debug.Log("player used: " + move + "type: " + move.type + "damage: " + move.damage);
+
+        if(result == TypeEffectiveness.NOTVERYEFFECTIVE)
+        {
+            ScendoMonster.CurrentHp -= damageRecieved /2;
+            Debug.Log("not very effective damage taken: " + damageRecieved / 2);
+        }
+
+        else if (result == TypeEffectiveness.SUPEREFFECTIVE)
+        {
+            ScendoMonster.CurrentHp -= damageRecieved * 2;
+            Debug.Log("super effective damage taken: " + damageRecieved * 2);
+        }
+        else if (result == TypeEffectiveness.NEUTRAL)
+        {
+            ScendoMonster.CurrentHp -= damageRecieved;
+            Debug.Log("damage taken: " + damageRecieved);
+        }
+
+        
+        
         Debug.Log("HP remaining: " + ScendoMonster.CurrentHp);
         AIHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
     
     }
 
 
-    IEnumerator DelayDecision(EncounterInstance encounter)
-    {
-        //Choose what action to do
-        //Cast some ability
-        myEncounter.currentCharacterTurn = myEncounter.Enemy; // new
-        
-        yield return new WaitForSeconds(5.0f);
-        Debug.Log("Enemy taking turn");
-
-
-        //if (health <= 50 && health >=26)
-        //{
-        //    int moveProbability = Random.Range(1, 5);
-
-
-        //    if (moveProbability == 1)
-        //    {
-        //        UseAbility(0);
-        //        moveToUse = 0;
-        //    }
-        //    else if(moveProbability == 2)
-        //    {
-        //        UseAbility(1);
-        //        moveToUse = 1;
-        //    }
-
-        //    else if (moveProbability >= 3)
-        //    {
-        //        UseAbility(2);
-        //        moveToUse = 2;
-        //        health += 50;
-        //    }
-
-        //} else if(health <= 25)
-        //{
-        //    int moveProbability = Random.Range(1, 10);
-
-
-        //    if (moveProbability == 1)
-        //    {
-        //        UseAbility(0);
-        //        moveToUse = 0;
-        //    }
-        //    else if (moveProbability == 2)
-        //    {
-        //        UseAbility(1);
-        //        moveToUse = 1;
-        //    }
-
-        //    else if (moveProbability >= 3)
-        //    {
-        //        UseAbility(2);
-        //        moveToUse = 2;
-        //        health += 50;
-        //    }
-        //}
-
-        //else if(health > 50)
-        //{
-        //    int moveProbability = Random.Range(1, 10);
-
-
-        //    if (moveProbability <= 4)
-        //    {
-        //        UseAbility(0);
-        //        moveToUse = 0;
-        //    }
-        //    else if (moveProbability <= 9 && moveProbability >=5)
-        //    {
-        //        UseAbility(1);
-        //        moveToUse = 1;
-        //    }
-
-        //    else if (moveProbability == 10)
-        //    {
-        //        UseAbility(2);
-        //        moveToUse = 2;
-        //        health += 50;
-        //    }
-
-            UseAbility(moveToUse);
-        //}
-
-
-
-        animateTextCoroutineRef = AnimateTextCoroutine( "Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
-        
-        abilityPanel.SetActive(false);
-        abilityPanel.SetActive(false);
-        mainPanel.SetActive(false);
-        StartCoroutine(animateTextCoroutineRef);
-        yield return new WaitForSeconds(5.0f);
-        mainPanel.SetActive(true);
-
-        myEncounter.currentCharacterTurn = myEncounter.Enemy; //new
-
-
-
-        //Debug.Log("Enemy taking turn");
-        //yield return new WaitForSeconds(5.0f);
-        myEncounter.AdvanceTurns(); // recomment out if no work :\
-
-
-    }
-
     public IEnumerator DelayDecisionBetter()
     {
 
         Debug.Log("Enemy taking turn");
 
-        //UseAbility(moveToUse);
-
-
-
+        //moveToUse = Random.Range(0, 1);
+        moveToUse = 1;
        
         animateTextCoroutineRef = AnimateTextCoroutine("Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
-        encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse].damage);
+        encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster.MonsterAbilities[moveToUse].damage);
         abilityPanel.SetActive(false);
         mainPanel.SetActive(false);
 
         StartCoroutine(animateTextCoroutineRef);
+        attackAnimController.OnAttackAnim(ScendoMonster.MonsterAbilities[moveToUse]);
+
 
 
         if (battleManager.playerFaster == false)

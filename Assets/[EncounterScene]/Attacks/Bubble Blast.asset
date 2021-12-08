@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 601bec8cde8cf744f8594d98f6ab39c0, type: 3}
-  m_Name: Leaf Blast
+  m_Name: Bubble Blast
   m_EditorClassIdentifier: 
-  name: Leaf Blast
-  damage: 45
+  name: Bubble Blast
+  damage: 50
   accuracy: 0
-  description: I have no idea yet
-  type: 3
-  animation: {fileID: 6303092531758817075, guid: dbb6c2108d18a644f89918a19b2398b3, type: 3}
-  animationTransform: {x: -3, y: 0.61}
-  animationRotation: {x: -18.152, y: 90, z: -90}
-  effects:
-  - {fileID: 11400000, guid: f8a9961ef1a91a240b9affe11b5163a1, type: 2}
-  index: 1
+  description: 
+  type: 1
+  animation: {fileID: 2813089800164889137, guid: dec2c0e79edacba499c649fea3f1fdb2, type: 3}
+  animationTransform: {x: 2.517614, y: 1.6405212}
+  animationRotation: {x: 26.564, y: -90, z: 90}
+  effects: []
+  index: 4

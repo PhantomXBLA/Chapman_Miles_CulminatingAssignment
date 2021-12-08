@@ -39,6 +39,11 @@ public class EncounterUI : MonoBehaviour
     public int chosenMove;
     public string chosenMoveName;
 
+    MonsterDatabase Mourntooth;
+    AttackAnimationController attackAnimController;
+
+    Vector2 moveLocation;
+
 
     //This is a reference to keep track of our coroutine
     private IEnumerator animateTextCoroutineRef = null;
@@ -88,7 +93,8 @@ public class EncounterUI : MonoBehaviour
         PlayerHealthBar = GameObject.Find("PlayerHealthBar");
         player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.TotalHp;
 
-
+        Mourntooth = player.GetComponent<EncounterPlayerCharacter>().Mourntooth;
+        attackAnimController = GameObject.Find("AttackAnimationController").GetComponent<AttackAnimationController>();
     }
 
     void EnablePlayerUI(ICharacter characterTurn)
@@ -135,7 +141,7 @@ public class EncounterUI : MonoBehaviour
         move1.GetComponent<Button>().onClick.AddListener(delegate{OnAttackButtonPressed(0,move1.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text);});
 
         move2.GetComponent<Button>().onClick.RemoveAllListeners();
-        move2.GetComponent<Button>().onClick.AddListener(delegate{OnAttackButtonPressed(0,move2.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text);});
+        move2.GetComponent<Button>().onClick.AddListener(delegate{OnAttackButtonPressed(1,move2.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text);});
 
        fightButton.GetComponent<Button>().onClick.RemoveAllListeners();
 
@@ -177,10 +183,12 @@ public class EncounterUI : MonoBehaviour
     {
         StopCoroutine(animateTextCoroutineRef);
         animateTextCoroutineRef = AnimateTextCoroutine(player.GetComponent<EncounterPlayerCharacter>().Mourntooth.name + " used " + moveName + "!");
-        enemy.GetComponent<AICharacter>().TakeDamage(player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[move].damage);
+        enemy.GetComponent<AICharacter>().TakeDamage(player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[move], player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[move].damage);
         abilityPanel.SetActive(false);
         mainPanel.SetActive(false);
         StartCoroutine(animateTextCoroutineRef);
+
+        attackAnimController.OnAttackAnim(Mourntooth.MonsterAbilities[move]);
 
         if (battleManager.playerFaster == true)
         {
@@ -208,10 +216,30 @@ public class EncounterUI : MonoBehaviour
         StartCoroutine(animateTextCoroutineRef);
     }
 
-    public void TakeDamage(int damageRecieved)
+    public void TakeDamage(Ability move, int damageRecieved)
     {
-        player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp -= damageRecieved;
-        Debug.Log("damage taken: " + damageRecieved);
+
+        TypeEffectiveness result = battleManager.checkTypeEffectiveness(move, Mourntooth);
+
+        Debug.Log("player used: " + move + "type: " + move.type + "damage: " + move.damage);
+
+        if (result == TypeEffectiveness.NOTVERYEFFECTIVE)
+        {
+            Mourntooth.CurrentHp -= damageRecieved / 2;
+            Debug.Log("not very effective damage taken: " + damageRecieved / 2);
+        }
+
+        else if (result == TypeEffectiveness.SUPEREFFECTIVE)
+        {
+            Mourntooth.CurrentHp -= damageRecieved * 2;
+            Debug.Log("super effective damage taken: " + damageRecieved * 2);
+        }
+        else if (result == TypeEffectiveness.NEUTRAL)
+        {
+            Mourntooth.CurrentHp -= damageRecieved;
+            Debug.Log("damage taken: " + damageRecieved);
+        }
+
         Debug.Log("HP remaining: " + player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp);
         PlayerHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
     }

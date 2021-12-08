@@ -18,7 +18,23 @@ public class Ability : ScriptableObject
     private string description;
 
     [SerializeField]
+    public MonsterType type;
+
+    [SerializeField]
+    public GameObject animation;
+
+    [SerializeField]
+    public Vector2 animationTransform;
+
+    public Vector3 animationRotation;
+
+    [SerializeField]
     public IEffect[] effects;
+
+    [SerializeField]
+    public int index;
+
+
 
 
     public void Cast(ICharacter self, ICharacter other)
