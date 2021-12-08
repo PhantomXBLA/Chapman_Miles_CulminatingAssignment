@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 //Will prompt the user what to do, and enable/disable UI elements at different times
 public class EncounterUI : MonoBehaviour
 {
+    FadeController fadeController;
+
     [SerializeField]
     EncounterInstance encounter;
 
@@ -167,6 +169,7 @@ public class EncounterUI : MonoBehaviour
 
     public void OnRunButtonPressed()
     {
+        StartCoroutine(Run());
         SceneManager.LoadScene("Overworld");
     }
 
@@ -211,6 +214,15 @@ public class EncounterUI : MonoBehaviour
         Debug.Log("damage taken: " + damageRecieved);
         Debug.Log("HP remaining: " + player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp);
         PlayerHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
+    }
+
+    IEnumerator Run()
+    {
+        yield return new WaitForSeconds(1.0f);
+        animateTextCoroutineRef = AnimateTextCoroutine("Got away safely!");
+        StartCoroutine(animateTextCoroutineRef);
+        yield return new WaitForSeconds(1.0f);
+        fadeController.fadeToWhite();
     }
 
 

@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TitleSubScreenUI : MonoBehaviour
+public class SubScreenUI : MonoBehaviour
 {
+    private void Start()
+    {
+        
+    }
+
     public void OnBackButtonPressed()
     {
         SceneManager.LoadScene("TitleScreen");
     }
+
 }

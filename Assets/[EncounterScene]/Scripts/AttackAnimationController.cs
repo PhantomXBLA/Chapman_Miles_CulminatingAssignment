@@ -16,6 +16,7 @@ public class AttackAnimationController : MonoBehaviour
     public GameObject scratchAnim;
     public GameObject convalesceAnim;
     public GameObject bubbleBlastAnim;
+    public GameObject flamethrowerAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class AttackAnimationController : MonoBehaviour
         scratchAnim.SetActive(false);
         convalesceAnim.SetActive(false);
         bubbleBlastAnim.SetActive(false);
+        flamethrowerAnim.SetActive(false);
     }
 
     // Update is called once per frame
@@ -52,6 +54,16 @@ public class AttackAnimationController : MonoBehaviour
     public void OnConvalesceAttackAnim()
     {
         StartCoroutine(ConvalesceAnim());
+    }
+
+    public void OnBubbleBlastAttackAnim()
+    {
+        StartCoroutine(BubbleBlastAnim());
+    }
+
+    public void OnFlamethrowerAttackAnim()
+    {
+        StartCoroutine(FlamethrowerAnim());
     }
 
 
@@ -100,10 +112,20 @@ public class AttackAnimationController : MonoBehaviour
     IEnumerator BubbleBlastAnim()
     {
         yield return new WaitForSeconds(1.0f); //for text to print
-        convalesceAnim.SetActive(true); //Play animation
-        soundSource.clip = attackSoundClips[3];
+        bubbleBlastAnim.SetActive(true); //Play animation
+        soundSource.clip = attackSoundClips[4];
         soundSource.Play();
         yield return new WaitForSeconds(4.0f); //wait for animation to finish
-        convalesceAnim.SetActive(false); // deactivate animation
+        bubbleBlastAnim.SetActive(false); // deactivate animation
+    }
+
+    IEnumerator FlamethrowerAnim()
+    {
+        yield return new WaitForSeconds(1.0f); //for text to print
+        flamethrowerAnim.SetActive(true); //Play animation
+        soundSource.clip = attackSoundClips[5];
+        soundSource.Play();
+        yield return new WaitForSeconds(4.0f); //wait for animation to finish
+        flamethrowerAnim.SetActive(false); // deactivate animation
     }
 }
