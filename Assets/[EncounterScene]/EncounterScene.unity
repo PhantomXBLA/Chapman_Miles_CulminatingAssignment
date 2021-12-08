@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b72579cabae414ebbe66f30e5182d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScendoMonster: {fileID: 0}
+  ScendoMonster: {fileID: 11400000, guid: fb9fa3ccdb4d92f45ac75e57bb414c7f, type: 2}
   opponent: {fileID: 1215038144}
   myEncounter: {fileID: 1009988983}
   encounterText: {fileID: 680560517}
@@ -906,7 +906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1237224973327795055, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnLeafBlastButtonPressed
+      value: OnLeafBlastAttackAnim
       objectReference: {fileID: 0}
     - target: {fileID: 1237224973327795055, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1764,11 +1764,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1744632962434458334, guid: 867f4b4c88775244ea836a73577adc3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.5
+      value: 3.73
       objectReference: {fileID: 0}
     - target: {fileID: 1744632962434458334, guid: 867f4b4c88775244ea836a73577adc3a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.12
+      value: 0.23
       objectReference: {fileID: 0}
     - target: {fileID: 1744632962434458334, guid: 867f4b4c88775244ea836a73577adc3a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1805,6 +1805,10 @@ PrefabInstance:
     - target: {fileID: 2290304931699723553, guid: 867f4b4c88775244ea836a73577adc3a, type: 3}
       propertyPath: m_Name
       value: Slap
+      objectReference: {fileID: 0}
+    - target: {fileID: 5487369047993655603, guid: 867f4b4c88775244ea836a73577adc3a, type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 867f4b4c88775244ea836a73577adc3a, type: 3}
@@ -2059,7 +2063,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 71.339966}
-  m_SizeDelta: {x: 1035, y: 142.68}
+  m_SizeDelta: {x: 1015, y: 142.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1717718849
 MonoBehaviour:
@@ -2395,11 +2399,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2478149753716060412, guid: cee5b319ae213ba4f9b217109979d319, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.72
       objectReference: {fileID: 0}
     - target: {fileID: 2478149753716060412, guid: cee5b319ae213ba4f9b217109979d319, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.8
       objectReference: {fileID: 0}
     - target: {fileID: 2478149753716060412, guid: cee5b319ae213ba4f9b217109979d319, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3325,6 +3329,34 @@ PrefabInstance:
     - target: {fileID: 1237224973327795054, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237224973327795055, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237224973327795055, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237224973327795055, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1440936683}
+    - target: {fileID: 1237224973327795055, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237224973327795055, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnSlapButtonAttackAnim
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237224973327795055, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AttackAnimationController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237224973327795055, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1237224973614574083, guid: 67aebbd18b1963b4cbeeb8ecca66d4d2, type: 3}
       propertyPath: m_text
