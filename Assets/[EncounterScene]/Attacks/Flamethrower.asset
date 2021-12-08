@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Flamethrower
   damage: 60
-  accuracy: 0
+  accuracy: 100
   description: 
   type: 2
   animation: {fileID: 3236348041158664182, guid: f389a02090e941c4f964949aa9877647, type: 3}

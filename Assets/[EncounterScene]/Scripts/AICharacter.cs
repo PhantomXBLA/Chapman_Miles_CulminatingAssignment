@@ -87,11 +87,12 @@ public class AICharacter : ICharacter
         Debug.Log("Enemy taking turn");
 
         //moveToUse = Random.Range(0, 1);
-        moveToUse = 0;
+        moveToUse = 1;
        
         animateTextCoroutineRef = AnimateTextCoroutine("Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
         //encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster.MonsterAbilities[moveToUse].damage);
-        int damageToDeal = battleManager.TakeDamage(scendoAttacks[moveToUse], ScendoMonster, player.GetComponent<EncounterPlayerCharacter>().Mourntooth);
+        //Debug.Log(ScendoMonster.MonsterAbilities[moveToUse]);
+        int damageToDeal = battleManager.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster, player.GetComponent<EncounterPlayerCharacter>().Mourntooth);
         encounterUI.TakeDamage(damageToDeal);
         abilityPanel.SetActive(false);
         mainPanel.SetActive(false);

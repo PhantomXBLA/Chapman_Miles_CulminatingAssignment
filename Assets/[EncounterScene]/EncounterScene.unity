@@ -449,6 +449,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -2.85
       objectReference: {fileID: 0}
+    - target: {fileID: 8272951818008796878, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_Color.b
+      value: 0.20000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272951818008796878, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8272951818008796878, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
 --- !u!1001 &497834767
@@ -2698,6 +2710,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -8.805
       objectReference: {fileID: 0}
+    - target: {fileID: 2066376097359055252, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.36
+      objectReference: {fileID: 0}
     - target: {fileID: 3475245318439003244, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_text
       value: 'Lvl: 0'
@@ -2732,15 +2748,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8272951818008796878, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_Color.b
-      value: 0.59599996
+      value: 0.19810939
       objectReference: {fileID: 0}
     - target: {fileID: 8272951818008796878, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_Color.g
-      value: 0.59599996
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8272951818008796878, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_Color.r
-      value: 0.59599996
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f64040ce8c897174c88a9d7282939f16, type: 3}

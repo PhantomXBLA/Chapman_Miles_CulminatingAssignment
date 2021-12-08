@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Bubble Blast
   damage: 50
-  accuracy: 0
+  accuracy: 100
   description: 
   type: 1
   animation: {fileID: 2813089800164889137, guid: dec2c0e79edacba499c649fea3f1fdb2, type: 3}

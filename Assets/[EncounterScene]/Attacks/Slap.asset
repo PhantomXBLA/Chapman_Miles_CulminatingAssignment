@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Slap
   damage: 40
-  accuracy: 0
+  accuracy: 95
   description: Slap the enemy to assert dominance
   type: 4
   animation: {fileID: 2290304931699723553, guid: 867f4b4c88775244ea836a73577adc3a, type: 3}

@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Dampurr
   m_EditorClassIdentifier: 
   monsterName: Dampurr
-  level: 0
+  level: 5
   description: 
   type: 1
-  totalHp: 90
+  totalHp: 22
   currentHp: 0
-  attack: 0
-  defense: 0
-  speed: 15
+  attack: 14
+  defense: 11
+  speed: 17
   monsterAbilities:
   - {fileID: 11400000, guid: 959ded1150f5b414cac96c2839dced84, type: 2}
+  - {fileID: 11400000, guid: 219126d5edab2214cbba0e25de9530c2, type: 2}
   frontSprite: {fileID: 21300000, guid: 1a80e45f5d19fbb428df1f1a91afa6fd, type: 3}
   backSprite: {fileID: 0}

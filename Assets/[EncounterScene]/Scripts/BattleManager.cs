@@ -101,6 +101,11 @@ public class BattleManager : MonoBehaviour
         int criticalHitMultiplier;
         int criticalHitOdds = Random.Range(1, 11);
 
+        int chanceToMiss;
+        int accuracyCheck = Random.Range(1, 101);
+
+        float typeMultiplier;
+
         if (criticalHitOdds <= 1)
         {
             criticalHitMultiplier = 2;
@@ -109,6 +114,15 @@ public class BattleManager : MonoBehaviour
         else
         {
             criticalHitMultiplier = 1;
+        }
+
+        if(move.type == scendoAttacking.ScendoType)
+        {
+            typeMultiplier = 1.5f;
+        }
+        else
+        {
+            typeMultiplier = 1;
         }
 
         TypeEffectiveness result = checkTypeEffectiveness(move, scendoReceiving);
@@ -130,10 +144,25 @@ public class BattleManager : MonoBehaviour
             Debug.Log("neutral");
         }
 
-        damage = ((((((scendoAttacking.Level * 2) / 5) + 2) * move.damage * (scendoAttacking.Attack / scendoReceiving.Defense)) / 50) + 2) * Random.Range(0.85f, 1.01f) * criticalHitMultiplier * superEffectiveMultiplier;
+        damage = scendoAttacking.Level * 2 / 5 + 2 * move.damage * scendoAttacking.Attack / scendoReceiving.Defense / 50 + 2 * Random.Range(0.85f, 1.01f) * criticalHitMultiplier * superEffectiveMultiplier * typeMultiplier;
 
+        if (damage < 1)
+        {
+            damage = 1;
+        }
+
+        chanceToMiss = 100 - move.accuracy;
+
+        if(accuracyCheck <= chanceToMiss)
+        {
+            damage = 0;
+            Debug.Log("the attack missed " + "rolled number: " + accuracyCheck);
+        }
+
+
+        Debug.Log("move base power: " + move.damage +" damage to deal: " + damage);
         int damageAsInt = Mathf.FloorToInt(damage);
-        Debug.Log("damage received: " + damageAsInt);
+        //Debug.Log("damage received: " + damageAsInt);
         return damageAsInt;
 
         
