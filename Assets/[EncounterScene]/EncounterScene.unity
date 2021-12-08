@@ -223,7 +223,7 @@ MonoBehaviour:
   myEncounter: {fileID: 1009988983}
   encounterText: {fileID: 680560517}
   timeBetweenCharacters: 0.01
-  enemy: {fileID: 21934030}
+  player: {fileID: 0}
   mainPanel: {fileID: 1858299264}
   abilityPanel: {fileID: 940959801}
   battleManager: {fileID: 777141654}
@@ -440,6 +440,14 @@ PrefabInstance:
     - target: {fileID: 5739417786597470359, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 3.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904072179673619395, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1362984
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904072179673619395, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.85
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
@@ -2030,6 +2038,7 @@ MonoBehaviour:
   battleManager: {fileID: 777141654}
   chosenMove: 0
   chosenMoveName: 
+  Mourntooth: {fileID: 0}
 --- !u!1 &1822624099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,6 +2702,14 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Lvl: 0'
       objectReference: {fileID: 0}
+    - target: {fileID: 3908221351254816731, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_text
+      value: 'HP: 27 / 27'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3908221351254816731, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5739417786597470359, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_LocalScale.x
       value: -0.1362984
@@ -2704,6 +2721,10 @@ PrefabInstance:
     - target: {fileID: 5739417786597470359, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 1.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904072179673619395, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.86
       objectReference: {fileID: 0}
     - target: {fileID: 8272951818008796878, guid: f64040ce8c897174c88a9d7282939f16, type: 3}
       propertyPath: m_Color.a

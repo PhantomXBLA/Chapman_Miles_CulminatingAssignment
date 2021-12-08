@@ -87,7 +87,59 @@ public class BattleManager : MonoBehaviour
         
     }
 
-    public TypeEffectiveness checkTypeEffectiveness(Ability move, MonsterDatabase scendo)
+    public int TakeDamage(Ability move, MonsterDatabase scendoAttacking, MonsterDatabase scendoReceiving)
+    {
+
+        //Using the attack formula from the actual Pokemon games
+        //https://bulbapedia.bulbagarden.net/wiki/Damage
+
+        float damage;
+
+        float superEffectiveMultiplier = 1;
+
+
+        int criticalHitMultiplier;
+        int criticalHitOdds = Random.Range(1, 11);
+
+        if (criticalHitOdds <= 1)
+        {
+            criticalHitMultiplier = 2;
+            Debug.Log("critical hit");
+        }
+        else
+        {
+            criticalHitMultiplier = 1;
+        }
+
+        TypeEffectiveness result = checkTypeEffectiveness(move, scendoReceiving);
+
+        if (result == TypeEffectiveness.NOTVERYEFFECTIVE)
+        {
+            superEffectiveMultiplier = 0.5f;
+            Debug.Log("not very effective");
+        }
+
+        else if (result == TypeEffectiveness.SUPEREFFECTIVE)
+        {
+            superEffectiveMultiplier = 2f;
+            Debug.Log("super effective");
+        }
+        else if (result == TypeEffectiveness.NEUTRAL)
+        {
+            superEffectiveMultiplier = 1f;
+            Debug.Log("neutral");
+        }
+
+        damage = ((((((scendoAttacking.Level * 2) / 5) + 2) * move.damage * (scendoAttacking.Attack / scendoReceiving.Defense)) / 50) + 2) * Random.Range(0.85f, 1.01f) * criticalHitMultiplier * superEffectiveMultiplier;
+
+        int damageAsInt = Mathf.FloorToInt(damage);
+        Debug.Log("damage received: " + damageAsInt);
+        return damageAsInt;
+
+        
+    }
+
+        public TypeEffectiveness checkTypeEffectiveness(Ability move, MonsterDatabase scendo)
     {
         
         TypeEffectiveness typeEffectiveness = TypeEffectiveness.NEUTRAL;

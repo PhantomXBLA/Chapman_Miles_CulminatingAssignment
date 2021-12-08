@@ -10,6 +10,7 @@ public class HealthBarScript : MonoBehaviour
 
     TMPro.TextMeshPro monsterName;
     TMPro.TextMeshPro monsterLevel;
+    TMPro.TextMeshPro monsterHP;
     GameObject HealthBarSprite;
 
     // Start is called before the first frame update
@@ -31,6 +32,7 @@ public class HealthBarScript : MonoBehaviour
         monsterName = this.gameObject.transform.GetChild(1).GetComponent<TMPro.TextMeshPro>();
         monsterLevel = this.gameObject.transform.GetChild(2).GetComponent<TMPro.TextMeshPro>();
         HealthBarSprite = this.gameObject.transform.GetChild(3).gameObject;
+        monsterHP = this.gameObject.transform.GetChild(4).GetComponent<TMPro.TextMeshPro>();
 
         if (this.gameObject.name == "PlayerHealthBar")
         {
@@ -46,6 +48,7 @@ public class HealthBarScript : MonoBehaviour
 
         monsterName.text = monster.MonsterName;
         monsterLevel.text = ("Lvl: " + monster.Level.ToString());
+        monsterHP.text = "HP: " + monster.CurrentHp + " / " + monster.TotalHp;
     }
 
     public void UpdateHealthBar()
@@ -68,5 +71,7 @@ public class HealthBarScript : MonoBehaviour
         {
             HealthBarSprite.GetComponent<SpriteRenderer>().color = Color.red;
         }
+
+        monsterHP.text = "HP: " + monster.CurrentHp + " / " + monster.TotalHp;
     }
 }

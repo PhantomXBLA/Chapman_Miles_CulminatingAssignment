@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slap
   m_EditorClassIdentifier: 
   name: Slap
-  damage: 30
+  damage: 40
   accuracy: 0
   description: Slap the enemy to assert dominance
   type: 4

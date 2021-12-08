@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Mourntooth
   m_EditorClassIdentifier: 
   monsterName: Mourntooth
-  level: 0
+  level: 7
   description: 
   type: 3
-  totalHp: 65
+  totalHp: 27
   currentHp: 0
-  attack: 0
-  defense: 0
+  attack: 23
+  defense: 15
   speed: 45
   monsterAbilities:
   - {fileID: 11400000, guid: a5e7f2cc2de1da4419a329ff19854461, type: 2}

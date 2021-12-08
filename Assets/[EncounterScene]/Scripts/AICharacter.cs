@@ -22,7 +22,7 @@ public class AICharacter : ICharacter
     float timeBetweenCharacters = 0.1f;
 
     [SerializeField]
-    public GameObject enemy;
+    public GameObject player;
 
     [SerializeField]
     public GameObject mainPanel;
@@ -42,7 +42,7 @@ public class AICharacter : ICharacter
     private void Start()
     {
         attackAnimController = GameObject.Find("AttackAnimationController").GetComponent<AttackAnimationController>();
-
+        player = GameObject.Find("Mourntooth");
     }
 
     private IEnumerator animateTextCoroutineRef = null;
@@ -74,34 +74,10 @@ public class AICharacter : ICharacter
 
     }
 
-    public void TakeDamage(Ability move, int damageRecieved)
+    public void TakeDamage(int damageRecieved)
     {
-        TypeEffectiveness result = battleManager.checkTypeEffectiveness(move, ScendoMonster);
-
-        Debug.Log("player used: " + move + "type: " + move.type + "damage: " + move.damage);
-
-        if(result == TypeEffectiveness.NOTVERYEFFECTIVE)
-        {
-            ScendoMonster.CurrentHp -= damageRecieved /2;
-            Debug.Log("not very effective damage taken: " + damageRecieved / 2);
-        }
-
-        else if (result == TypeEffectiveness.SUPEREFFECTIVE)
-        {
-            ScendoMonster.CurrentHp -= damageRecieved * 2;
-            Debug.Log("super effective damage taken: " + damageRecieved * 2);
-        }
-        else if (result == TypeEffectiveness.NEUTRAL)
-        {
-            ScendoMonster.CurrentHp -= damageRecieved;
-            Debug.Log("damage taken: " + damageRecieved);
-        }
-
-        
-        
-        Debug.Log("HP remaining: " + ScendoMonster.CurrentHp);
+        ScendoMonster.CurrentHp -= damageRecieved;
         AIHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
-    
     }
 
 
@@ -111,10 +87,12 @@ public class AICharacter : ICharacter
         Debug.Log("Enemy taking turn");
 
         //moveToUse = Random.Range(0, 1);
-        moveToUse = 1;
+        moveToUse = 0;
        
         animateTextCoroutineRef = AnimateTextCoroutine("Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
-        encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster.MonsterAbilities[moveToUse].damage);
+        //encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster.MonsterAbilities[moveToUse].damage);
+        int damageToDeal = battleManager.TakeDamage(scendoAttacks[moveToUse], ScendoMonster, player.GetComponent<EncounterPlayerCharacter>().Mourntooth);
+        encounterUI.TakeDamage(damageToDeal);
         abilityPanel.SetActive(false);
         mainPanel.SetActive(false);
 
