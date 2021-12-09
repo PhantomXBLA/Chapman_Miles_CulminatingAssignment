@@ -34,6 +34,7 @@ public class AICharacter : ICharacter
 
 
     GameObject AIHealthBar;
+    GameObject PlayerHealthBar;
     public BattleManager battleManager;
     public EncounterUI encounterUI;
 
@@ -63,6 +64,7 @@ public class AICharacter : ICharacter
         scendoAttacks = ScendoMonster.MonsterAbilities;
         ScendoMonster.CurrentHp = ScendoMonster.TotalHp;
         AIHealthBar = GameObject.Find("EnemyHealthBar");
+        PlayerHealthBar = GameObject.Find("PlayerHealthBar");
     }
 
     public void UseAbility(int slot)
@@ -77,7 +79,7 @@ public class AICharacter : ICharacter
     public void TakeDamage(int damageRecieved)
     {
         ScendoMonster.CurrentHp -= damageRecieved;
-        AIHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
+        //AIHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
     }
 
 
@@ -86,8 +88,8 @@ public class AICharacter : ICharacter
 
         Debug.Log("Enemy taking turn");
 
-        //moveToUse = Random.Range(0, 1);
-        moveToUse = 1;
+        moveToUse = Random.Range(0, 2);
+        //moveToUse = 1;
        
         animateTextCoroutineRef = AnimateTextCoroutine("Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
         //encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster.MonsterAbilities[moveToUse].damage);
@@ -98,19 +100,19 @@ public class AICharacter : ICharacter
         mainPanel.SetActive(false);
 
         StartCoroutine(animateTextCoroutineRef);
-        attackAnimController.OnAttackAnim(ScendoMonster.MonsterAbilities[moveToUse]);
+        attackAnimController.OnAttackAnim(ScendoMonster.MonsterAbilities[moveToUse], PlayerHealthBar.GetComponent<HealthBarScript>());
 
 
 
         if (battleManager.playerFaster == false)
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(4.0f);
             StartCoroutine(encounterUI.DoAttack(encounterUI.chosenMove, encounterUI.chosenMoveName));
         }
         
         else if(battleManager.playerFaster == true)
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(4.0f);
             mainPanel.SetActive(true);
             encounterUI.ResetTurn();
         }

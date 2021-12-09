@@ -49,6 +49,8 @@ public class HealthBarScript : MonoBehaviour
         monsterName.text = monster.MonsterName;
         monsterLevel.text = ("Lvl: " + monster.Level.ToString());
         monsterHP.text = "HP: " + monster.CurrentHp + " / " + monster.TotalHp;
+
+
     }
 
     public void UpdateHealthBar()

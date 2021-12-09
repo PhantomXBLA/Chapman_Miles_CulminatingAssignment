@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 //Will prompt the user what to do, and enable/disable UI elements at different times
 public class EncounterUI : MonoBehaviour
 {
-    FadeController fadeController;
 
     [SerializeField]
     EncounterInstance encounter;
@@ -23,6 +22,10 @@ public class EncounterUI : MonoBehaviour
 
     public GameObject player;
     public GameObject enemy;
+
+    GameObject AIHealthBar;
+
+    public Image blackFade;
 
     //These are buttons
     GameObject move1, move2;
@@ -50,7 +53,14 @@ public class EncounterUI : MonoBehaviour
     
     // Start is called before the first frame update
     void Start()
-    { 
+    {
+        StartCoroutine(DelayAndFadeFromBlack());
+
+        //For fading from black on stage opening
+        blackFade.canvasRenderer.SetAlpha(1.0f);
+
+        // For Fading to black
+        blackFade.canvasRenderer.SetAlpha(0.0f);
 
         animateTextCoroutineRef = AnimateTextCoroutine("You have encountered an opponent!");
         //Animate some text to say what you encountered
@@ -91,10 +101,14 @@ public class EncounterUI : MonoBehaviour
 
         abilityPanel.SetActive(false);
         PlayerHealthBar = GameObject.Find("PlayerHealthBar");
+        AIHealthBar = GameObject.Find("EnemyHealthBar");
         player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.TotalHp;
 
         Mourntooth = player.GetComponent<EncounterPlayerCharacter>().Mourntooth;
         attackAnimController = GameObject.Find("AttackAnimationController").GetComponent<AttackAnimationController>();
+
+
+
     }
 
     void EnablePlayerUI(ICharacter characterTurn)
@@ -160,7 +174,6 @@ public class EncounterUI : MonoBehaviour
     public void OnRunButtonPressed()
     {
         StartCoroutine(Run());
-        SceneManager.LoadScene("Overworld");
     }
 
     public IEnumerator DoAttack(int move, string moveName)
@@ -176,7 +189,7 @@ public class EncounterUI : MonoBehaviour
         mainPanel.SetActive(false);
         StartCoroutine(animateTextCoroutineRef);
 
-        attackAnimController.OnAttackAnim(Mourntooth.MonsterAbilities[move]);
+        attackAnimController.OnAttackAnim(Mourntooth.MonsterAbilities[move], AIHealthBar.GetComponent<HealthBarScript>());
 
         if (battleManager.playerFaster == true)
         {
@@ -207,16 +220,41 @@ public class EncounterUI : MonoBehaviour
     public void TakeDamage(int damageRecieved)
     {
         Mourntooth.CurrentHp -= damageRecieved;
-        PlayerHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
+        //PlayerHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
+    }
+
+
+    public void fadeToBlack()
+    {
+        //This is changing the FadeIn/Out image to 1 (0 = invisible / 1 = visible)
+        // 2nd argument is the amount of time the fade takes to complete
+        blackFade.CrossFadeAlpha(1, 2.0f, false);
+        Debug.Log("Fading from encounter...");
+
+    }
+
+    public void fadeFromBlack()
+    {
+        //This is changing the FadeIn/Out image to 0 (0 = invisible / 1 = visible)
+        // 2nd argument is the amount of time the fade takes to complete
+        blackFade.CrossFadeAlpha(0, 2.0f, false);
+        Debug.Log("Fading into encounter...");
+    }
+
+    IEnumerator DelayAndFadeFromBlack()
+    {
+        fadeFromBlack();
+        yield return new WaitForSeconds(1.6f);
     }
 
     IEnumerator Run()
     {
-        yield return new WaitForSeconds(1.0f);
         animateTextCoroutineRef = AnimateTextCoroutine("Got away safely!");
         StartCoroutine(animateTextCoroutineRef);
         yield return new WaitForSeconds(1.0f);
-        fadeController.fadeToWhite();
+        fadeToBlack();
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene("Overworld");
     }
 
 

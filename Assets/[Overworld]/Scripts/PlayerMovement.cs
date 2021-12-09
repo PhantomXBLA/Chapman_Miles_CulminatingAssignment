@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
 
     public static bool isMoving = false;
 
+    public bool canMove = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.velocity = new Vector2(0, 0);
         }
 
-        if (isMoving == false)
+        if ((isMoving == false) && (canMove == true))
         {
             float inputX = Input.GetAxisRaw("Horizontal");
             float inputY = Input.GetAxisRaw("Vertical");

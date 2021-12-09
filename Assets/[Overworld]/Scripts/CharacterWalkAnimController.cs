@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public enum CardinalDirection
@@ -13,10 +14,14 @@ public enum CardinalDirection
 
 public class CharacterWalkAnimController : MonoBehaviour
 {
+    [SerializeField]
+    List<AudioClip> encounterSoundClips;
+
+    OverworldAIEncounterBehaviour overworldAIEncounterBehaviour;
 
     [SerializeField]
     private Animator animator;
-    
+
     [SerializeField]
     private CardinalDirection facing = CardinalDirection.South;
 
@@ -25,10 +30,26 @@ public class CharacterWalkAnimController : MonoBehaviour
 
     private bool isMoving = false;
 
+    public Image blackFade;
+
+    public AudioSource preEncounterSounds;
+
+    PlayerMovement playerMovement;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        //For fading from black on stage opening
+        blackFade.canvasRenderer.SetAlpha(1.0f);
+
+        // For Fading to black
+        blackFade.canvasRenderer.SetAlpha(0.0f);
+
+        playerMovement = GetComponent<PlayerMovement>();
+        rigidbody = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -45,7 +66,7 @@ public class CharacterWalkAnimController : MonoBehaviour
         bool isWalking = velocity.sqrMagnitude > float.Epsilon;
         bool isMovingHorizontally = Mathf.Abs(velocity.x) > Mathf.Abs(velocity.y);
 
-        if(isMovingHorizontally)
+        if (isMovingHorizontally)
         {
             if (velocity.x < 0)
             {
@@ -92,25 +113,68 @@ public class CharacterWalkAnimController : MonoBehaviour
             //for any amount of time.
             if (Random.Range(1, 101) <= 1)
             {
+                //tapeSounds.clip = tapeSoundClips[1];
+                //tapeSounds.Play();
+
                 Debug.Log("A wild scendo appeared");
 
                 PlayerPrefs.SetInt("EncounterCheck", 0); // 0 = wild encounter, 1 = trainer encounter
 
 
-                if (Random.Range(1, 11) <= 1)
+                if (Random.Range(1, 11) <= 4)
                 {
+
                     PlayerPrefs.SetString("RandomEncounter", "Parchpaw");
                 }
-                else if (Random.Range(1, 11) >= 2)
+                else if (Random.Range(1, 11) >= 5)
                 {
                     PlayerPrefs.SetString("RandomEncounter", "Dampurr");
                 }
                 Debug.Log(PlayerPrefs.GetString("RandomEncounter"));
-                SceneManager.LoadScene("EncounterScene");
+
+                
+                StartCoroutine(DelayAndFadeToBlack());
+                
+
+                PlayerPrefs.SetFloat("tempXPos", this.gameObject.transform.position.x);
+                PlayerPrefs.SetFloat("tempYPos", this.gameObject.transform.position.y);
             }
         }
     }
 
 
-    
+    public void fadeToBlack()
+    {
+        //This is changing the FadeIn/Out image to 1 (0 = invisible / 1 = visible)
+        // 2nd argument is the amount of time the fade takes to complete
+        blackFade.CrossFadeAlpha(1, 2.0f, false);
+        Debug.Log("Fading to encounter...");
+
+    }
+
+    public IEnumerator DelayAndFadeToBlack()
+    {
+        //wait 2 seconds for tape sound
+
+        //Disable movement and animation
+
+        
+        preEncounterSounds.clip = encounterSoundClips[0];
+        preEncounterSounds.Play();
+
+        playerMovement.canMove = false;
+        rigidbody.velocity = new Vector2(0, 0);
+        
+        fadeToBlack();
+        yield return new WaitForSeconds(2.75f);
+
+        StartCoroutine(DelaySceneLoading());
+    }
+
+    public IEnumerator DelaySceneLoading()
+    {
+        yield return new WaitForSeconds(.01f);
+        playerMovement.canMove = true;
+        SceneManager.LoadScene("EncounterScene");
+    }
 }

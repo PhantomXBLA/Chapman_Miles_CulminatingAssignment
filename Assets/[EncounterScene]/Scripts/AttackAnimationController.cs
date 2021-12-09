@@ -66,9 +66,9 @@ public class AttackAnimationController : MonoBehaviour
         StartCoroutine(FlamethrowerAnim());
     }
 
-    public void OnAttackAnim(Ability move)
+    public void OnAttackAnim(Ability move, HealthBarScript healthBarScript)
     {
-        StartCoroutine(SpawnAndPlayAnim(move));
+        StartCoroutine(SpawnAndPlayAnim(move, healthBarScript));
     }
 
 
@@ -134,18 +134,20 @@ public class AttackAnimationController : MonoBehaviour
         flamethrowerAnim.SetActive(false); // deactivate animation
     }
 
-    IEnumerator SpawnAndPlayAnim(Ability move)
+    IEnumerator SpawnAndPlayAnim(Ability move, HealthBarScript healthBarScript)
     {
 
        
 
         
-        yield return new WaitForSeconds(1.0f); //for text to print
+        yield return new WaitForSeconds(0.5f); //for text to print
         GameObject animation = Instantiate(move.animation, move.animationTransform, Quaternion.Euler(move.animationRotation));
         soundSource.clip = attackSoundClips[move.index];
         soundSource.Play();
-        yield return new WaitForSeconds(4.0f); //wait for animation to finish
+        float delay = animation.GetComponent<ParticleSystem>().main.duration;
+        yield return new WaitForSeconds(delay); //wait for animation to finish
         Destroy(animation.gameObject);
+        healthBarScript.UpdateHealthBar();
     }
 
 

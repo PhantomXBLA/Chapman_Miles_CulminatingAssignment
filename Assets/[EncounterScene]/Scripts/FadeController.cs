@@ -9,7 +9,7 @@ public class FadeController : MonoBehaviour
 {
 
     public Image blackFade;
-    public Image whiteFade;
+   //public Image whiteFade;
 
 
 
@@ -22,7 +22,8 @@ public class FadeController : MonoBehaviour
         // For Fading to black
        blackFade.canvasRenderer.SetAlpha(0.0f);
 
-        StartCoroutine(DelayAndFadeFromBlack());
+        //StartCoroutine(DelayAndFadeFromBlack());
+        fadeFromBlack();
     }
 
     // Update is called once per frame
@@ -36,15 +37,15 @@ public class FadeController : MonoBehaviour
         blackFade.CrossFadeAlpha(0, 1, false);
     }
 
-    public void fadeToWhite()
-    {
-        whiteFade.CrossFadeAlpha(1, 1, false);
-    }
+    //public void fadeToWhite()
+    //{
+    //    whiteFade.CrossFadeAlpha(1, 1, false);
+    //}
 
-    public void OnRunButtonPressed()
-    {
-        StartCoroutine(delayAndFadeToWhite());
-    }
+    //public void OnRunButtonPressed()
+    //{
+    //    StartCoroutine(delayAndFadeToWhite());
+    //}
 
 
     IEnumerator DelayAndFadeFromBlack()
@@ -53,9 +54,9 @@ public class FadeController : MonoBehaviour
         fadeFromBlack();
     }
 
-    IEnumerator delayAndFadeToWhite()
-    {
-        yield return new WaitForSeconds(1f);
-        fadeToWhite();
-    }
+    //IEnumerator delayAndFadeToWhite()
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    fadeToWhite();
+    //}
 }

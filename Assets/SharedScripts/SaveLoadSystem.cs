@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SaveLoadSystem : MonoBehaviour
 {
@@ -12,8 +13,8 @@ public class SaveLoadSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SaveButton.GetComponent<Button>().onClick.AddListener(OnSaveButtonPressed);
-        LoadButton.GetComponent<Button>().onClick.AddListener(OnLoadButtonPressed);
+       // SaveButton.GetComponent<Button>().onClick.AddListener(OnSaveButtonPressed);
+        //LoadButton.GetComponent<Button>().onClick.AddListener(OnLoadButtonPressed);
 
         if (PlayerPrefs.GetInt("NewGameFlag") == 0)
         {
@@ -28,7 +29,7 @@ public class SaveLoadSystem : MonoBehaviour
         
     }
 
-    void OnSaveButtonPressed()
+    public void OnSaveButtonPressed()
     {
         player = GameObject.Find("Noah");
         PlayerPrefs.SetFloat("xPos", player.transform.position.x);
@@ -37,7 +38,7 @@ public class SaveLoadSystem : MonoBehaviour
 
     }
 
-    void OnLoadButtonPressed()
+    public void OnLoadButtonPressed()
     {
         player = GameObject.Find("Noah");
 
@@ -50,5 +51,10 @@ public class SaveLoadSystem : MonoBehaviour
         {
             Debug.Log("no save game found");
         }
+    }
+
+    public void OnQuitButtonPressed()
+    {
+        SceneManager.LoadScene("TitleScreen");
     }
 }

@@ -15,4 +15,8 @@ public class SubScreenUI : MonoBehaviour
         SceneManager.LoadScene("TitleScreen");
     }
 
+    public void OnUIQuitButtonPressed()
+    {
+        SceneManager.LoadScene("TitleScreen");
+    }
 }

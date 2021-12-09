@@ -60,16 +60,14 @@ public class OverworldAIEncounterBehaviour : MonoBehaviour
 
     }
 
-    IEnumerator DelayAndFadeToBlack()
+    public IEnumerator DelayAndFadeToBlack()
     {
         //wait 2 seconds for tape sound
         yield return new WaitForSeconds(2);
         fadeToBlack();
-
-        
     }
 
-    IEnumerator ReActivateMovementAndAnimations()
+    public IEnumerator ReActivateMovementAndAnimations()
     {
         yield return new WaitForSeconds(5);
         //Re-enable player movement
@@ -77,14 +75,14 @@ public class OverworldAIEncounterBehaviour : MonoBehaviour
         player.GetComponent<CharacterWalkAnimController>().enabled = !player.GetComponent<CharacterWalkAnimController>().enabled;
     }
 
-    IEnumerator WaitToPlayOtherSFX()
+    public IEnumerator WaitToPlayOtherSFX()
     {
         yield return new WaitForSeconds(.4f);
         tapeSounds.clip = tapeSoundClips[1];
         tapeSounds.Play();
     }
 
-    IEnumerator WaitToStartEncounter()
+    public IEnumerator WaitToStartEncounter()
     {
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("EncounterScene");
@@ -92,7 +90,8 @@ public class OverworldAIEncounterBehaviour : MonoBehaviour
         
     }
 
-    IEnumerator DelayBeforeEncounter()
+
+    public IEnumerator DelayBeforeEncounter()
     {
         //First the text prints
         //And we give the player 2.5 seconds to read it

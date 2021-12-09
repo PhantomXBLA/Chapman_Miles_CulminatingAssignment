@@ -137,11 +137,11 @@ GameObject:
   m_Component:
   - component: {fileID: 106719638828682983}
   - component: {fileID: 1022644523981015424}
-  - component: {fileID: 8067647669520973448}
   - component: {fileID: 3484679980522129135}
+  - component: {fileID: 1850989609}
   - component: {fileID: 523435316256848002}
   - component: {fileID: 7560291726969885108}
-  - component: {fileID: 1850989609}
+  - component: {fileID: 8067647669520973448}
   - component: {fileID: 1850989603}
   m_Layer: 0
   m_Name: Lavir
@@ -217,29 +217,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8067647669520973448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717929483579928836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44fdea69c7146d549ab58b88764f6464, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DialougeIndex: 1
-  Dialouge:
-  - The dialouge for this character has not been set.
-  - Hi, I'm Lavir. You have a cassette! I challenge you to a Sendo battle!
-  name: Placeholder
-  canvas: {fileID: 0}
-  spacebarIcon: {fileID: 7434167916664540843}
-  animator: {fileID: 266153592}
-  messagePrefab: {fileID: 0}
-  borderPrefab: {fileID: 0}
-  timeBetweenCharacters: 0.01
 --- !u!50 &3484679980522129135
 Rigidbody2D:
   serializedVersion: 4
@@ -261,6 +238,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!95 &1850989609
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717929483579928836}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c985a0c8c3d269438d592d81732dfbc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!70 &523435316256848002
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -303,25 +299,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.0423088, y: 1.3015652}
   m_EdgeRadius: 0
---- !u!95 &1850989609
-Animator:
-  serializedVersion: 3
+--- !u!114 &8067647669520973448
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717929483579928836}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4c985a0c8c3d269438d592d81732dfbc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44fdea69c7146d549ab58b88764f6464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialougeIndex: 1
+  Dialouge:
+  - The dialouge for this character has not been set.
+  - Hi, I'm Lavir. You have a cassette! I challenge you to a Sendo battle!
+  name: Placeholder
+  canvas: {fileID: 0}
+  spacebarIcon: {fileID: 7434167916664540843}
+  animator: {fileID: 266153592}
+  messagePrefab: {fileID: 0}
+  borderPrefab: {fileID: 0}
+  timeBetweenCharacters: 0.01
 --- !u!114 &1850989603
 MonoBehaviour:
   m_ObjectHideFlags: 0
