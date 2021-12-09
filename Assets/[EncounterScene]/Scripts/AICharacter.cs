@@ -94,13 +94,32 @@ public class AICharacter : ICharacter
         animateTextCoroutineRef = AnimateTextCoroutine("Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
         //encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster.MonsterAbilities[moveToUse].damage);
         //Debug.Log(ScendoMonster.MonsterAbilities[moveToUse]);
-        int damageToDeal = battleManager.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster, player.GetComponent<EncounterPlayerCharacter>().Mourntooth);
-        encounterUI.TakeDamage(damageToDeal);
-        abilityPanel.SetActive(false);
+
+        if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.DAMAGE)
+        {
+          int damageToDeal = battleManager.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster, player.GetComponent<EncounterPlayerCharacter>().Mourntooth);
+          encounterUI.TakeDamage(damageToDeal);
+        }
+        else if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.HEALING)
+        {
+            int hpToHeal;
+        }
+
+
+            abilityPanel.SetActive(false);
         mainPanel.SetActive(false);
 
         StartCoroutine(animateTextCoroutineRef);
-        attackAnimController.OnAttackAnim(ScendoMonster.MonsterAbilities[moveToUse], PlayerHealthBar.GetComponent<HealthBarScript>());
+
+        if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.DAMAGE)
+        {
+            attackAnimController.OnAttackAnim(ScendoMonster.MonsterAbilities[moveToUse], PlayerHealthBar.GetComponent<HealthBarScript>());
+        }
+        else if(ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.HEALING)
+        {
+            attackAnimController.OnAttackAnim(ScendoMonster.MonsterAbilities[moveToUse], AIHealthBar.GetComponent<HealthBarScript>());
+
+        }
 
 
 

@@ -168,6 +168,15 @@ public class BattleManager : MonoBehaviour
         
     }
 
+    public int HealHealth(Ability move, MonsterDatabase scendoUsing)
+    {
+        float healAmount = scendoUsing.TotalHp * 0.5f;
+        
+
+        int healAmountAsInt = Mathf.FloorToInt(healAmount);
+        return healAmountAsInt;
+    }
+
         public TypeEffectiveness checkTypeEffectiveness(Ability move, MonsterDatabase scendo)
     {
         

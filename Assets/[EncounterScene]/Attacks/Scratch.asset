@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Scratch
   damage: 40
+  damagingAttack: 1
   accuracy: 100
   description: Scratch the enemy
   type: 4

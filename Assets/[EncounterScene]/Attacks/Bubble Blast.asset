@@ -17,6 +17,7 @@ MonoBehaviour:
   accuracy: 100
   description: 
   type: 1
+  moveEffect: 0
   animation: {fileID: 2813089800164889137, guid: dec2c0e79edacba499c649fea3f1fdb2, type: 3}
   animationTransform: {x: 2.517614, y: 1.6405212}
   animationRotation: {x: 26.564, y: -90, z: 90}

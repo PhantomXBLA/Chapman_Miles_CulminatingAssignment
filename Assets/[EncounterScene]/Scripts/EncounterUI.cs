@@ -28,7 +28,7 @@ public class EncounterUI : MonoBehaviour
     public Image blackFade;
 
     //These are buttons
-    GameObject move1, move2;
+    GameObject move1, move2, move3;
     GameObject fightButton;
     GameObject runButton;
 
@@ -103,7 +103,7 @@ public class EncounterUI : MonoBehaviour
         PlayerHealthBar = GameObject.Find("PlayerHealthBar");
         AIHealthBar = GameObject.Find("EnemyHealthBar");
         player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.TotalHp;
-
+        PlayerHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
         Mourntooth = player.GetComponent<EncounterPlayerCharacter>().Mourntooth;
         attackAnimController = GameObject.Find("AttackAnimationController").GetComponent<AttackAnimationController>();
 
@@ -149,6 +149,13 @@ public class EncounterUI : MonoBehaviour
                 move2 = go;
                 move2.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[1].name;
             }
+
+            else if(go.name == "Move3")
+            {
+                move3 = go;
+                move3.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[2].name;
+
+            }
         }
 
         move1.GetComponent<Button>().onClick.RemoveAllListeners();
@@ -157,7 +164,10 @@ public class EncounterUI : MonoBehaviour
         move2.GetComponent<Button>().onClick.RemoveAllListeners();
         move2.GetComponent<Button>().onClick.AddListener(delegate{OnAttackButtonPressed(1,move2.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text);});
 
-       fightButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        move3.GetComponent<Button>().onClick.RemoveAllListeners();
+        move3.GetComponent<Button>().onClick.AddListener(delegate { OnAttackButtonPressed(2, move3.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text); });
+
+        fightButton.GetComponent<Button>().onClick.RemoveAllListeners();
 
     }
 
@@ -182,14 +192,41 @@ public class EncounterUI : MonoBehaviour
         animateTextCoroutineRef = AnimateTextCoroutine(player.GetComponent<EncounterPlayerCharacter>().Mourntooth.name + " used " + moveName + "!");
         //enemy.GetComponent<AICharacter>().TakeDamage(player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[move], player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[move].damage);
 
-        int damageToDeal = battleManager.TakeDamage(Mourntooth.MonsterAbilities[move], Mourntooth, enemy.GetComponent<AICharacter>().ScendoMonster);
-        enemy.GetComponent<AICharacter>().TakeDamage(damageToDeal);
+
+
+
+        if (Mourntooth.MonsterAbilities[move].moveEffect == MoveEffect.DAMAGE)
+        {
+            int damageToDeal = battleManager.TakeDamage(Mourntooth.MonsterAbilities[move], Mourntooth, enemy.GetComponent<AICharacter>().ScendoMonster);
+            enemy.GetComponent<AICharacter>().TakeDamage(damageToDeal);
+        }
+        else if (Mourntooth.MonsterAbilities[move].moveEffect == MoveEffect.HEALING)
+        {
+            int hpToHeal = battleManager.HealHealth(Mourntooth.MonsterAbilities[move], Mourntooth);
+            HealScendo(hpToHeal);
+        }
+
+
+
+
+
+
+       
 
         abilityPanel.SetActive(false);
         mainPanel.SetActive(false);
         StartCoroutine(animateTextCoroutineRef);
 
-        attackAnimController.OnAttackAnim(Mourntooth.MonsterAbilities[move], AIHealthBar.GetComponent<HealthBarScript>());
+        if(Mourntooth.MonsterAbilities[move].moveEffect == MoveEffect.DAMAGE)
+        {
+            attackAnimController.OnAttackAnim(Mourntooth.MonsterAbilities[move], AIHealthBar.GetComponent<HealthBarScript>());
+        }
+        else if(Mourntooth.MonsterAbilities[move].moveEffect == MoveEffect.HEALING)
+        {
+            attackAnimController.OnAttackAnim(Mourntooth.MonsterAbilities[move], PlayerHealthBar.GetComponent<HealthBarScript>());
+        }
+
+        
 
         if (battleManager.playerFaster == true)
         {
@@ -221,6 +258,18 @@ public class EncounterUI : MonoBehaviour
     {
         Mourntooth.CurrentHp -= damageRecieved;
         //PlayerHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
+    }
+
+    public void HealScendo(int healAmount)
+    {
+        if(Mourntooth.CurrentHp + healAmount > Mourntooth.TotalHp)
+        {
+            Mourntooth.CurrentHp = Mourntooth.TotalHp;
+        }
+        else
+        {
+            Mourntooth.CurrentHp += healAmount;
+        }
     }
 
 

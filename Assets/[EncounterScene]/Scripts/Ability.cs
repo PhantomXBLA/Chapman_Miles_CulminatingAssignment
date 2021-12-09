@@ -11,6 +11,8 @@ public class Ability : ScriptableObject
     [SerializeField]
     public int damage;
 
+
+
     [SerializeField]
     public int accuracy;
 
@@ -19,6 +21,9 @@ public class Ability : ScriptableObject
 
     [SerializeField]
     public MonsterType type;
+
+    [SerializeField]
+    public MoveEffect moveEffect;
 
     [SerializeField]
     public GameObject animation;
@@ -43,4 +48,11 @@ public class Ability : ScriptableObject
     }
 
 
+}
+
+public enum MoveEffect
+{
+    DAMAGE,
+    STATUS,
+    HEALING
 }
