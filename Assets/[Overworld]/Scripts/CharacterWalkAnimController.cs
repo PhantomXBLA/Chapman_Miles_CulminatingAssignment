@@ -97,12 +97,13 @@ public class CharacterWalkAnimController : MonoBehaviour
             isMoving = false;
         }
 
-
         animator.SetBool("isWalking", isWalking);
         animator.SetInteger("walkDirection", (int)facing); //walk up
     }
 
 
+    //Insperation for finding random encounters in the overworld
+    //https://www.youtube.com/watch?v=fePYYZaesSM&t=25s
 
     private void OnTriggerStay2D(Collider2D other)
     {
@@ -120,23 +121,17 @@ public class CharacterWalkAnimController : MonoBehaviour
 
                 PlayerPrefs.SetInt("EncounterCheck", 0); // 0 = wild encounter, 1 = trainer encounter
 
-
                 if (Random.Range(1, 11) <= 4)
                 {
-
                     PlayerPrefs.SetString("RandomEncounter", "Parchpaw");
                 }
                 else if (Random.Range(1, 11) >= 5)
                 {
                     PlayerPrefs.SetString("RandomEncounter", "Dampurr");
                 }
+                
                 Debug.Log(PlayerPrefs.GetString("RandomEncounter"));
-
-                
                 StartCoroutine(DelayAndFadeToBlack());
-                
-                //Set the players location before they enter an encounter
-
             }
         }
     }
