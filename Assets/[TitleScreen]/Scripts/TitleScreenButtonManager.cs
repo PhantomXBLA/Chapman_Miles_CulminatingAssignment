@@ -65,7 +65,6 @@ public class TitleScreenButtonManager : MonoBehaviour
 
         NewGameButton.GetComponent<Button>().onClick.AddListener(NewGameButtonPressed);
         ContinueButton.GetComponent<Button>().onClick.AddListener(ContinueButtonPressed);
-        OptionsButton.GetComponent<Button>().onClick.AddListener(OptionsButtonPressed);
         HelpButton.GetComponent<Button>().onClick.AddListener(HelpButtonPressed);
         CreditsButton.GetComponent<Button>().onClick.AddListener(CreditsButtonPressed);
         QuitButton.GetComponent<Button>().onClick.AddListener(QuitButtonPressed);
