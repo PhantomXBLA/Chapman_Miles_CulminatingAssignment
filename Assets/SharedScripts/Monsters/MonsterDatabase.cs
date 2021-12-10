@@ -13,7 +13,7 @@ public class MonsterDatabase : ScriptableObject
     string monsterName;
 
     [SerializeField]
-    int level;
+    public int level;
 
     [TextArea]
     [SerializeField]
@@ -53,7 +53,8 @@ public class MonsterDatabase : ScriptableObject
     //Need monster name available outside of the class
     public string MonsterName
     {
-        get { return monsterName; } 
+        get { return monsterName; }
+        set { monsterName = value; }
     }
 
     public string Description
@@ -61,9 +62,16 @@ public class MonsterDatabase : ScriptableObject
         get { return description; }
     }
 
+
+
+    //public int TotalHp { get; set; }
+
     public int TotalHp
     {
+
         get { return totalHp; }
+        set { totalHp = value; }
+
     }
 
     public int CurrentHp { get; set; }
@@ -71,41 +79,52 @@ public class MonsterDatabase : ScriptableObject
     public int Attack
     {
         get { return attack; }
+        set { attack = value; }
+
     }
 
     public int Defense
     {
         get { return defense; }
+        set { defense = value; }
     }
 
     public int Speed
     {
         get { return speed; }
+        set { speed = value; }
     }
 
     public int Level
     {
         get { return level; }
+        set { level = value; }
     }
+
 
     public Sprite FrontSprite
     {
         get { return frontSprite; }
+        set { frontSprite = value; }
     }
 
     public Sprite BackSprite
     {
         get { return backSprite; }
+        set { backSprite = value; }
     }
 
     public Ability[] MonsterAbilities
     {
         get { return monsterAbilities; }
+        set { monsterAbilities = value; }
+
     }
 
     public MonsterType ScendoType
     {
         get { return type; }
+        set { type = value; }
     }
 
 }

@@ -12,6 +12,7 @@ public class BattleManager : MonoBehaviour
     public EncounterUI encounterUI;
     public AICharacter aiCharacter;
     public MasterScendoDatabase scendoDatabase;
+    public AttackDatabase attackDatabase;
 
     public HealthBarScript playerHealthbar;
     public HealthBarScript enemyHealthbar;
@@ -27,7 +28,7 @@ public class BattleManager : MonoBehaviour
     {
 
         audioController = GameObject.Find("BattleAudioController").GetComponent<AudioController>();
-        Mourntooth = GameObject.Find("Mourntooth").GetComponent<EncounterPlayerCharacter>().Mourntooth;
+
 
         playerHealthbar = GameObject.Find("PlayerHealthBar").GetComponent<HealthBarScript>();
         enemyHealthbar = GameObject.Find("EnemyHealthBar").GetComponent<HealthBarScript>();
@@ -36,9 +37,9 @@ public class BattleManager : MonoBehaviour
         if (PlayerPrefs.GetInt("EncounterCheck") == 0)
         {
             assignEncounter = PlayerPrefs.GetString("RandomEncounter");
-            //aiCharacter.ScendoMonster
-            
-            if(assignEncounter == "Parchpaw")
+            audioController.PlayWildTheme();
+
+            if (assignEncounter == "Parchpaw")
             {
                 aiCharacter.ScendoMonster = scendoDatabase.Parchpaw;
             }
@@ -48,13 +49,41 @@ public class BattleManager : MonoBehaviour
                 aiCharacter.ScendoMonster = scendoDatabase.Dampurr;
             }
 
-            aiCharacter.loadScendo();
-            playerHealthbar.LoadHealthBar();
-            enemyHealthbar.LoadHealthBar();
-            audioController.PlayWildTheme();
+
+
+        }
+        
+        else if(PlayerPrefs.GetInt("EncounterCheck") == 1)
+        {
+            assignEncounter = PlayerPrefs.GetString("RandomEncounter");
+            audioController.PlayTrainerTheme();
+            Debug.Log(assignEncounter);
+
+            if (assignEncounter == "Mourntooth")
+            {
+                MonsterDatabase rivalMourntooth = new MonsterDatabase();
+
+                Ability[] rivalAttacks = new Ability[] { attackDatabase.Flamethrower, attackDatabase.ConvalesceFlame, attackDatabase.Scratch };
+
+                rivalMourntooth = createScendo(rivalMourntooth, scendoDatabase.Mourntooth.MonsterName, 5, MonsterType.FIRE, 22, 22, 19, 11, 40, rivalAttacks, scendoDatabase.Mourntooth.FrontSprite, scendoDatabase.Mourntooth.BackSprite );
+
+
+                aiCharacter.ScendoMonster = rivalMourntooth;
+
+            }
         }
 
+
+
+
+        aiCharacter.loadScendo();
+        encounterUI.loadScendo();
+        playerHealthbar.LoadHealthBar();
+        enemyHealthbar.LoadHealthBar();
+        
+
         ScendoOpponent = GameObject.Find("Enemy").GetComponent<AICharacter>().ScendoMonster;
+        Mourntooth = GameObject.Find("EncounterUI").GetComponent<EncounterUI>().Mourntooth;
 
         if (Mourntooth.Speed > ScendoOpponent.Speed)
         {
@@ -85,6 +114,28 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public MonsterDatabase createScendo(MonsterDatabase scendo, string MonsterName, int Level, MonsterType type, int TotalHp, int CurrentHP, int Attack, int Defense, int Speed, Ability[] monsterAbilities, Sprite FrontSprite, Sprite BackSprite)
+    {
+
+        scendo.Level = Level;
+        scendo.TotalHp = TotalHp;
+        scendo.CurrentHp = scendo.TotalHp;
+
+        scendo.Attack = Attack;
+        scendo.Defense = Defense;
+        scendo.Speed = Speed;
+
+        scendo.MonsterAbilities = monsterAbilities;
+
+        scendo.MonsterName = MonsterName;
+        scendo.FrontSprite = FrontSprite;
+        scendo.BackSprite = BackSprite;
+        scendo.ScendoType = type;
+
+
+        return scendo;
     }
 
     public int TakeDamage(Ability move, MonsterDatabase scendoAttacking, MonsterDatabase scendoReceiving)

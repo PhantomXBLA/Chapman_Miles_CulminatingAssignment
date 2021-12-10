@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class EncounterUI : MonoBehaviour
 {
     HealthBarScript healthBarScript;
-    MonsterDatabase monster;
 
     [SerializeField]
     EncounterInstance encounter;
@@ -30,25 +29,28 @@ public class EncounterUI : MonoBehaviour
     public Image blackFade;
 
     //These are buttons
-    GameObject move1, move2, move3;
+    GameObject move1, move2, move3, move4;
     GameObject fightButton;
     GameObject runButton;
 
+    public MonsterDatabase Mourntooth;
 
     [SerializeField]
     float timeBetweenCharacters = 0.1f;
 
     public BattleManager battleManager;
+    public MasterScendoDatabase scendoDatabase;
+    public AttackDatabase attackDatabase;
     GameObject PlayerHealthBar;
 
     public int chosenMove;
     public string chosenMoveName;
 
-    public MonsterDatabase Mourntooth;
     AttackAnimationController attackAnimController;
 
     Vector2 moveLocation;
 
+    Ability[] mourntoothAttacks;
 
     //This is a reference to keep track of our coroutine
     private IEnumerator animateTextCoroutineRef = null;
@@ -106,12 +108,41 @@ public class EncounterUI : MonoBehaviour
         abilityPanel.SetActive(false);
         PlayerHealthBar = GameObject.Find("PlayerHealthBar");
         AIHealthBar = GameObject.Find("EnemyHealthBar");
-        player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.TotalHp;
+        //player.GetComponent<EncounterPlayerCharacter>().Mourntooth.CurrentHp = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.TotalHp;
         PlayerHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
-        Mourntooth = player.GetComponent<EncounterPlayerCharacter>().Mourntooth;
+       
         attackAnimController = GameObject.Find("AttackAnimationController").GetComponent<AttackAnimationController>();
 
+       
 
+
+    }
+
+    public void loadScendo()
+    {
+        Mourntooth = new MonsterDatabase();
+
+        if (PlayerPrefs.GetInt("NewMoveLearned") == 0)
+        {
+            mourntoothAttacks = new Ability[] { attackDatabase.Slap, attackDatabase.LeafBlast, attackDatabase.Convalesce };
+        }
+        else
+        {
+            mourntoothAttacks = new Ability[] { attackDatabase.Slap, attackDatabase.LeafBlast, attackDatabase.Convalesce, attackDatabase.Slash };
+        }
+            
+
+        if (PlayerPrefs.HasKey("CurrentHP"))
+        {
+            Mourntooth = battleManager.createScendo(Mourntooth, scendoDatabase.Mourntooth.MonsterName, 7, MonsterType.GRASS, 27, PlayerPrefs.GetInt("CurrentHP"), 23, 15, 45, mourntoothAttacks, scendoDatabase.Mourntooth.FrontSprite, scendoDatabase.Mourntooth.BackSprite);
+        }
+        else
+        {
+            Mourntooth = battleManager.createScendo(Mourntooth, scendoDatabase.Mourntooth.MonsterName, 7, MonsterType.GRASS, 27, 27, 23, 15, 45, mourntoothAttacks, scendoDatabase.Mourntooth.FrontSprite, scendoDatabase.Mourntooth.BackSprite);
+
+        }
+
+        player.GetComponent<SpriteRenderer>().sprite = Mourntooth.BackSprite;
 
     }
 
@@ -133,7 +164,7 @@ public class EncounterUI : MonoBehaviour
     public void OnFightButtonPressed()
     {
         StopCoroutine((animateTextCoroutineRef));
-        animateTextCoroutineRef = AnimateTextCoroutine("What will " + player.GetComponent<EncounterPlayerCharacter>().Mourntooth.name + " do?");
+        animateTextCoroutineRef = AnimateTextCoroutine("What will " + Mourntooth.MonsterName + " do?");
         StartCoroutine(animateTextCoroutineRef);
         abilityPanel.SetActive(true);
         mainPanel.SetActive(false);
@@ -145,20 +176,33 @@ public class EncounterUI : MonoBehaviour
             if (go.name == "Move1")
             {
                 move1 = go;
-                move1.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[0].name;
+                move1.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = Mourntooth.MonsterAbilities[0].name;
             }
 
             else if (go.name == "Move2")
             {
                 move2 = go;
-                move2.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[1].name;
+                move2.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = Mourntooth.MonsterAbilities[1].name;
             }
 
             else if(go.name == "Move3")
             {
                 move3 = go;
-                move3.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[2].name;
+                move3.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = Mourntooth.MonsterAbilities[2].name;
 
+            }
+
+            else if(go.name == "Move4")
+            {
+                move4 = go;
+                if (PlayerPrefs.GetInt("NewMoveLearned") == 0)
+                {
+                    move4.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "";
+                }
+                else
+                {
+                    move4.gameObject.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = Mourntooth.MonsterAbilities[3].name;
+                }
             }
         }
 
@@ -171,7 +215,14 @@ public class EncounterUI : MonoBehaviour
         move3.GetComponent<Button>().onClick.RemoveAllListeners();
         move3.GetComponent<Button>().onClick.AddListener(delegate { OnAttackButtonPressed(2, move3.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text); });
 
-        fightButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        if (PlayerPrefs.GetInt("NewMoveLearned") == 1)
+        {
+            move4.GetComponent<Button>().onClick.RemoveAllListeners();
+            move4.GetComponent<Button>().onClick.AddListener(delegate { OnAttackButtonPressed(3, move4.GetComponent<Button>().GetComponentInChildren<TMPro.TextMeshProUGUI>().text); });
+        }
+
+
+            fightButton.GetComponent<Button>().onClick.RemoveAllListeners();
 
     }
 
@@ -193,7 +244,7 @@ public class EncounterUI : MonoBehaviour
     public IEnumerator DoAttack(int move, string moveName)
     {
         StopCoroutine(animateTextCoroutineRef);
-        animateTextCoroutineRef = AnimateTextCoroutine(player.GetComponent<EncounterPlayerCharacter>().Mourntooth.name + " used " + moveName + "!");
+        animateTextCoroutineRef = AnimateTextCoroutine(Mourntooth.MonsterName + " used " + moveName + "!");
         //enemy.GetComponent<AICharacter>().TakeDamage(player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[move], player.GetComponent<EncounterPlayerCharacter>().Mourntooth.MonsterAbilities[move].damage);
 
 
@@ -254,7 +305,7 @@ public class EncounterUI : MonoBehaviour
         fightButton.GetComponent<Button>().onClick.AddListener(OnFightButtonPressed);
         Debug.Log("----------TURN RESET----------");
 
-        animateTextCoroutineRef = AnimateTextCoroutine("What will " + player.GetComponent<EncounterPlayerCharacter>().Mourntooth.name + " do?");
+        animateTextCoroutineRef = AnimateTextCoroutine("What will " + Mourntooth.name + " do?");
         StartCoroutine(animateTextCoroutineRef);
     }
 
@@ -296,7 +347,10 @@ public class EncounterUI : MonoBehaviour
 
 
 
-
+    void updateScendoHP()
+    {
+        PlayerPrefs.SetInt("CurrentHP", Mourntooth.CurrentHp);
+    } 
 
 
 
@@ -331,6 +385,7 @@ public class EncounterUI : MonoBehaviour
         fadeToBlack();
         yield return new WaitForSeconds(2.0f);
 
+        updateScendoHP();
         PlayerPrefs.SetInt("ReturnFromEncounter", 1);
         SceneManager.LoadScene("Overworld");
     }
@@ -354,8 +409,10 @@ public class EncounterUI : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         fadeToBlack();
         yield return new WaitForSeconds(2.0f);
-        
+
         //load players last position in overworld
+        updateScendoHP();
+        PlayerPrefs.SetInt("NewMoveLearned", 1);
         PlayerPrefs.SetInt("ReturnFromEncounter", 1);
         SceneManager.LoadScene("Overworld");
     }
@@ -380,6 +437,7 @@ public class EncounterUI : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         fadeToBlack();
         yield return new WaitForSeconds(2.0f);
+
         SceneManager.LoadScene("Overworld");//Load from that last time the player saved.
     }
 

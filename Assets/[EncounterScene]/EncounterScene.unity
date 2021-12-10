@@ -284,6 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Parchpaw: {fileID: 11400000, guid: fb9fa3ccdb4d92f45ac75e57bb414c7f, type: 2}
   Dampurr: {fileID: 11400000, guid: 782ee7357c28e044d9f118967bb4d909, type: 2}
+  Mourntooth: {fileID: 11400000, guid: d3f800773d1e3674ea0ec1c45d3d0d81, type: 2}
 --- !u!4 &261704663
 Transform:
   m_ObjectHideFlags: 0
@@ -480,7 +481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303092531758817075, guid: dbb6c2108d18a644f89918a19b2398b3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6928966593999538454, guid: dbb6c2108d18a644f89918a19b2398b3, type: 3}
       propertyPath: m_RootOrder
@@ -810,6 +811,7 @@ MonoBehaviour:
   encounterUI: {fileID: 1717718851}
   aiCharacter: {fileID: 21934033}
   scendoDatabase: {fileID: 261704662}
+  attackDatabase: {fileID: 1945711057}
   playerHealthbar: {fileID: 0}
   enemyHealthbar: {fileID: 0}
   playerFaster: 0
@@ -1453,7 +1455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   opponent: {fileID: 21934033}
   myEncounter: {fileID: 1009988983}
-  Mourntooth: {fileID: 11400000, guid: d3f800773d1e3674ea0ec1c45d3d0d81, type: 2}
+  scendoDatabase: {fileID: 0}
   battleManager: {fileID: 777141654}
   encounterUI: {fileID: 1717718851}
 --- !u!1001 &1253990441
@@ -1513,7 +1515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2290304931699723553, guid: 867f4b4c88775244ea836a73577adc3a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5487369047993655603, guid: 867f4b4c88775244ea836a73577adc3a, type: 3}
       propertyPath: lengthInSec
@@ -2066,11 +2068,13 @@ MonoBehaviour:
   player: {fileID: 1215038141}
   enemy: {fileID: 21934030}
   blackFade: {fileID: 2009776736}
+  Mourntooth: {fileID: 0}
   timeBetweenCharacters: 0.01
   battleManager: {fileID: 777141654}
+  scendoDatabase: {fileID: 261704662}
+  attackDatabase: {fileID: 1945711057}
   chosenMove: 0
   chosenMoveName: 
-  Mourntooth: {fileID: 0}
 --- !u!1 &1822624099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,6 +2259,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858299264}
   m_CullTransparentMesh: 1
+--- !u!1 &1945711056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1945711058}
+  - component: {fileID: 1945711057}
+  m_Layer: 0
+  m_Name: AttackDatabase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1945711057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945711056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e03ecb731cdb0408c3b3ed48a51ee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BubbleBlast: {fileID: 11400000, guid: 219126d5edab2214cbba0e25de9530c2, type: 2}
+  Convalesce: {fileID: 11400000, guid: e4e748df494420c4a82fc07ffafc65f8, type: 2}
+  Flamethrower: {fileID: 11400000, guid: d229f3eae4914614d8a61036af639579, type: 2}
+  LeafBlast: {fileID: 11400000, guid: 7804b0902ff4c5e459c33d7f6778f106, type: 2}
+  Scratch: {fileID: 11400000, guid: 959ded1150f5b414cac96c2839dced84, type: 2}
+  Slap: {fileID: 11400000, guid: a5e7f2cc2de1da4419a329ff19854461, type: 2}
+  ConvalesceFlame: {fileID: 11400000, guid: 75dce5a61f8541e4e8d4bfce3d7d1ca2, type: 2}
+  Slash: {fileID: 11400000, guid: d1249b9966467264ab66bfc32e2f5926, type: 2}
+--- !u!4 &1945711058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945711056}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.4190838, y: 1.3616195, z: -10.545394}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2009776733
 GameObject:
   m_ObjectHideFlags: 0
@@ -2384,6 +2439,10 @@ PrefabInstance:
     - target: {fileID: 8797256296700291235, guid: cee5b319ae213ba4f9b217109979d319, type: 3}
       propertyPath: m_Name
       value: Scratch
+      objectReference: {fileID: 0}
+    - target: {fileID: 8797256296700291235, guid: cee5b319ae213ba4f9b217109979d319, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cee5b319ae213ba4f9b217109979d319, type: 3}
@@ -3071,7 +3130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2813089800164889137, guid: dec2c0e79edacba499c649fea3f1fdb2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2813089800164889148, guid: dec2c0e79edacba499c649fea3f1fdb2, type: 3}
       propertyPath: m_RootOrder
@@ -3196,7 +3255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8631413652508222549, guid: 4ed7993c7e018a2478fd53d274097adf, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ed7993c7e018a2478fd53d274097adf, type: 3}
@@ -3213,7 +3272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3236348041158664182, guid: f389a02090e941c4f964949aa9877647, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6093724822528290476, guid: f389a02090e941c4f964949aa9877647, type: 3}
       propertyPath: m_RootOrder

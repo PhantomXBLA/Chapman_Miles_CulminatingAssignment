@@ -6,4 +6,5 @@ public class MasterScendoDatabase : MonoBehaviour
 {
     public MonsterDatabase Parchpaw;
     public MonsterDatabase Dampurr;
+    public MonsterDatabase Mourntooth;
 }

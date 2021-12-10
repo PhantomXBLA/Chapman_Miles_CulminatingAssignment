@@ -82,6 +82,18 @@ public class AICharacter : ICharacter
         //AIHealthBar.GetComponent<HealthBarScript>().UpdateHealthBar();
     }
 
+    public void HealScendo(int healAmount)
+    {
+        if (ScendoMonster.CurrentHp + healAmount > ScendoMonster.TotalHp)
+        {
+            ScendoMonster.CurrentHp = ScendoMonster.TotalHp;
+        }
+        else
+        {
+            ScendoMonster.CurrentHp += healAmount;
+        }
+    }
+
 
     public IEnumerator DelayDecisionBetter()
     {
@@ -92,18 +104,19 @@ public class AICharacter : ICharacter
             moveToUse = Random.Range(0, 2);
             //moveToUse = 1;
 
-            animateTextCoroutineRef = AnimateTextCoroutine("Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
+            animateTextCoroutineRef = AnimateTextCoroutine("Enemy " + ScendoMonster.MonsterName + " used " + scendoAttacks[moveToUse].name + "!");
             //encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster.MonsterAbilities[moveToUse].damage);
             //Debug.Log(ScendoMonster.MonsterAbilities[moveToUse]);
 
             if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.DAMAGE)
             {
-                int damageToDeal = battleManager.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster, player.GetComponent<EncounterPlayerCharacter>().Mourntooth);
+                int damageToDeal = battleManager.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster, encounterUI.Mourntooth);
                 encounterUI.TakeDamage(damageToDeal);
             }
             else if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.HEALING)
             {
-                int hpToHeal;
+                int hpToHeal = battleManager.HealHealth(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster);
+                HealScendo(hpToHeal);
             }
 
 

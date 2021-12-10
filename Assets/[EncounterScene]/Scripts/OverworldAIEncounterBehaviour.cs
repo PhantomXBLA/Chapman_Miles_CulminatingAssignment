@@ -84,6 +84,11 @@ public class OverworldAIEncounterBehaviour : MonoBehaviour
 
     public IEnumerator WaitToStartEncounter()
     {
+
+        PlayerPrefs.SetInt("EncounterCheck", 1);
+        PlayerPrefs.SetFloat("tempXPos", this.gameObject.transform.position.x);
+        PlayerPrefs.SetFloat("tempYPos", this.gameObject.transform.position.y);
+        PlayerPrefs.SetString("RandomEncounter", "Mourntooth");
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("EncounterScene");
         

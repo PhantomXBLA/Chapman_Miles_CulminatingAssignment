@@ -22,7 +22,7 @@ MonoBehaviour:
   defense: 14
   speed: 35
   monsterAbilities:
-  - {fileID: 11400000, guid: a5e7f2cc2de1da4419a329ff19854461, type: 2}
+  - {fileID: 11400000, guid: 959ded1150f5b414cac96c2839dced84, type: 2}
   - {fileID: 11400000, guid: d229f3eae4914614d8a61036af639579, type: 2}
   frontSprite: {fileID: 21300000, guid: aab0ce89e20e24e4f873cc583825cdc5, type: 3}
   backSprite: {fileID: 0}

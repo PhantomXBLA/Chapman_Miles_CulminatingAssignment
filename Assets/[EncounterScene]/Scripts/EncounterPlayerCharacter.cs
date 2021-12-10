@@ -9,7 +9,7 @@ public class EncounterPlayerCharacter : ICharacter
     [SerializeField]
     private EncounterInstance myEncounter;
 
-    public MonsterDatabase Mourntooth;
+    public MasterScendoDatabase scendoDatabase;
     Ability[] scendoAttacks;
 
     public BattleManager battleManager;
@@ -17,8 +17,8 @@ public class EncounterPlayerCharacter : ICharacter
 
     private void Start()
     {
-        this.GetComponent<SpriteRenderer>().sprite = Mourntooth.BackSprite;
-        scendoAttacks = Mourntooth.MonsterAbilities;
+        //this.GetComponent<SpriteRenderer>().sprite = scendoDatabase.Mourntooth.BackSprite;
+        //scendoAttacks = scendoDatabase.Mourntooth.MonsterAbilities;
 
     }
 
