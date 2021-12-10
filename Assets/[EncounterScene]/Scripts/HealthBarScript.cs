@@ -42,7 +42,7 @@ public class HealthBarScript : MonoBehaviour
 
         if (this.gameObject.name == "PlayerHealthBar")
         {
-            monster = GameObject.Find("Mourntooth").GetComponent<EncounterPlayerCharacter>().Mourntooth;
+            monster = GameObject.Find("EncounterUI").GetComponent<EncounterUI>().Mourntooth;
 
         }
 

@@ -40,6 +40,11 @@ public class SaveLoadSystem : MonoBehaviour
         PlayerPrefs.SetFloat("yPos", player.transform.position.y);
         Debug.Log("the game has been saved");
 
+        if (PlayerPrefs.HasKey("NewMoveLearned"))
+        {
+
+        }
+
     }
 
     public void OnLoadButtonPressed()
