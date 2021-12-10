@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 //Will prompt the user what to do, and enable/disable UI elements at different times
 public class EncounterUI : MonoBehaviour
 {
+    HealthBarScript healthBarScript;
+    MonsterDatabase monster;
 
     [SerializeField]
     EncounterInstance encounter;
@@ -54,6 +56,8 @@ public class EncounterUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        healthBarScript = GetComponent<HealthBarScript>();
+
         StartCoroutine(DelayAndFadeFromBlack());
 
         //For fading from black on stage opening
@@ -273,6 +277,29 @@ public class EncounterUI : MonoBehaviour
     }
 
 
+    public void OnPlayerWin()
+    {
+       // if (monster.CurrentHp <= 0)
+        //{
+            StartCoroutine(PlayerWin());
+        //}
+    }
+
+    public void OnPlayerLose()
+    {
+        //if (Mourntooth.CurrentHp <= 0)
+        //{
+            StartCoroutine(PlayerLose());
+        //}
+
+    }
+
+
+
+
+
+
+
     public void fadeToBlack()
     {
         //This is changing the FadeIn/Out image to 1 (0 = invisible / 1 = visible)
@@ -303,8 +330,59 @@ public class EncounterUI : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         fadeToBlack();
         yield return new WaitForSeconds(2.0f);
+
+        PlayerPrefs.SetInt("ReturnFromEncounter", 1);
         SceneManager.LoadScene("Overworld");
     }
+
+    IEnumerator PlayerWin()
+    {
+        //----------------------------------------------- Make enemy sprite flash ------------------------
+        enemy.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+        enemy.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        enemy.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+        enemy.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        enemy.SetActive(false);
+        //----------------------------------------------- Make enemy sprite flash -----------------------
+
+        animateTextCoroutineRef = AnimateTextCoroutine("You have won this battle! You live to jam another day.");
+        StartCoroutine(animateTextCoroutineRef);
+        yield return new WaitForSeconds(2.0f);
+        fadeToBlack();
+        yield return new WaitForSeconds(2.0f);
+        
+        //load players last position in overworld
+        PlayerPrefs.SetInt("ReturnFromEncounter", 1);
+        SceneManager.LoadScene("Overworld");
+    }
+
+    IEnumerator PlayerLose()
+    {
+        
+        //----------------------------------------------- Make player sprite flash ------------------------
+        player.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+        player.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        player.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+        player.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        player.SetActive(false);
+        //----------------------------------------------- Make player sprite flash ------------------------
+
+        animateTextCoroutineRef = AnimateTextCoroutine("You have lost this battle. You will return to a previous moment of triumph!");
+        StartCoroutine(animateTextCoroutineRef);
+        yield return new WaitForSeconds(3.0f);
+        fadeToBlack();
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene("Overworld");//Load from that last time the player saved.
+    }
+
 
 
     IEnumerator AnimateTextCoroutine(string message)

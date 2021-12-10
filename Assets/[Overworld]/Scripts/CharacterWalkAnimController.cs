@@ -135,9 +135,8 @@ public class CharacterWalkAnimController : MonoBehaviour
                 
                 StartCoroutine(DelayAndFadeToBlack());
                 
+                //Set the players location before they enter an encounter
 
-                PlayerPrefs.SetFloat("tempXPos", this.gameObject.transform.position.x);
-                PlayerPrefs.SetFloat("tempYPos", this.gameObject.transform.position.y);
             }
         }
     }
@@ -168,6 +167,8 @@ public class CharacterWalkAnimController : MonoBehaviour
         fadeToBlack();
         yield return new WaitForSeconds(2.75f);
 
+        PlayerPrefs.SetFloat("tempXPos", this.gameObject.transform.position.x);
+        PlayerPrefs.SetFloat("tempYPos", this.gameObject.transform.position.y);
         StartCoroutine(DelaySceneLoading());
     }
 

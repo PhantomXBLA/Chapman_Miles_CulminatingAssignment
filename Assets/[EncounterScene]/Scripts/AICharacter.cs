@@ -85,58 +85,59 @@ public class AICharacter : ICharacter
 
     public IEnumerator DelayDecisionBetter()
     {
-
-        Debug.Log("Enemy taking turn");
-
-        moveToUse = Random.Range(0, 2);
-        //moveToUse = 1;
-       
-        animateTextCoroutineRef = AnimateTextCoroutine("Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
-        //encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster.MonsterAbilities[moveToUse].damage);
-        //Debug.Log(ScendoMonster.MonsterAbilities[moveToUse]);
-
-        if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.DAMAGE)
+        if (ScendoMonster.CurrentHp > 0)
         {
-          int damageToDeal = battleManager.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster, player.GetComponent<EncounterPlayerCharacter>().Mourntooth);
-          encounterUI.TakeDamage(damageToDeal);
-        }
-        else if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.HEALING)
-        {
-            int hpToHeal;
-        }
+            Debug.Log("Enemy taking turn");
+
+            moveToUse = Random.Range(0, 2);
+            //moveToUse = 1;
+
+            animateTextCoroutineRef = AnimateTextCoroutine("Enemy " + ScendoMonster.name + " used " + scendoAttacks[moveToUse].name + "!");
+            //encounterUI.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster.MonsterAbilities[moveToUse].damage);
+            //Debug.Log(ScendoMonster.MonsterAbilities[moveToUse]);
+
+            if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.DAMAGE)
+            {
+                int damageToDeal = battleManager.TakeDamage(ScendoMonster.MonsterAbilities[moveToUse], ScendoMonster, player.GetComponent<EncounterPlayerCharacter>().Mourntooth);
+                encounterUI.TakeDamage(damageToDeal);
+            }
+            else if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.HEALING)
+            {
+                int hpToHeal;
+            }
 
 
             abilityPanel.SetActive(false);
-        mainPanel.SetActive(false);
+            mainPanel.SetActive(false);
 
-        StartCoroutine(animateTextCoroutineRef);
+            StartCoroutine(animateTextCoroutineRef);
 
-        if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.DAMAGE)
-        {
-            attackAnimController.OnAttackAnim(ScendoMonster.MonsterAbilities[moveToUse], PlayerHealthBar.GetComponent<HealthBarScript>());
+            if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.DAMAGE)
+            {
+                attackAnimController.OnAttackAnim(ScendoMonster.MonsterAbilities[moveToUse], PlayerHealthBar.GetComponent<HealthBarScript>());
+            }
+            else if (ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.HEALING)
+            {
+                attackAnimController.OnAttackAnim(ScendoMonster.MonsterAbilities[moveToUse], AIHealthBar.GetComponent<HealthBarScript>());
+
+            }
+
+
+
+            if (battleManager.playerFaster == false)
+            {
+                yield return new WaitForSeconds(4.0f);
+                StartCoroutine(encounterUI.DoAttack(encounterUI.chosenMove, encounterUI.chosenMoveName));
+            }
+
+            else if (battleManager.playerFaster == true)
+            {
+                yield return new WaitForSeconds(4.0f);
+                mainPanel.SetActive(true);
+                encounterUI.ResetTurn();
+            }
+
         }
-        else if(ScendoMonster.MonsterAbilities[moveToUse].moveEffect == MoveEffect.HEALING)
-        {
-            attackAnimController.OnAttackAnim(ScendoMonster.MonsterAbilities[moveToUse], AIHealthBar.GetComponent<HealthBarScript>());
-
-        }
-
-
-
-        if (battleManager.playerFaster == false)
-        {
-            yield return new WaitForSeconds(4.0f);
-            StartCoroutine(encounterUI.DoAttack(encounterUI.chosenMove, encounterUI.chosenMoveName));
-        }
-        
-        else if(battleManager.playerFaster == true)
-        {
-            yield return new WaitForSeconds(4.0f);
-            mainPanel.SetActive(true);
-            encounterUI.ResetTurn();
-        }
-
-
         
     }
 

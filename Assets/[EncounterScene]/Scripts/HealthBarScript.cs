@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class HealthBarScript : MonoBehaviour
 {
+    EncounterUI encounterUI;
+
     MonsterDatabase monster;
 
     TMPro.TextMeshPro monsterName;
@@ -13,12 +15,16 @@ public class HealthBarScript : MonoBehaviour
     TMPro.TextMeshPro monsterHP;
     GameObject HealthBarSprite;
 
+    EncounterPlayerCharacter player;
+
+    float hpBarXFinal = 0.0f;
+
+    public bool playerWin;
+
     // Start is called before the first frame update
     void Start()
     {
-        
-
-
+        encounterUI = GameObject.Find("EncounterUI").GetComponent<EncounterUI>();
     }
 
     // Update is called once per frame
@@ -55,7 +61,7 @@ public class HealthBarScript : MonoBehaviour
 
     public void UpdateHealthBar()
     {
-        float hpBarXFinal = (float)monster.CurrentHp / (float)monster.TotalHp;
+        hpBarXFinal = (float)monster.CurrentHp / (float)monster.TotalHp;
 
         HealthBarSprite.transform.localScale = new Vector2(hpBarXFinal, 1);
 
@@ -75,5 +81,20 @@ public class HealthBarScript : MonoBehaviour
         }
 
         monsterHP.text = "HP: " + monster.CurrentHp + " / " + monster.TotalHp;
+
+
+        //--------------------------------------------Trigger the win or lose conditions-------------------------- -
+        if ((this.gameObject.name == "EnemyHealthBar") && (monster.CurrentHp <= 0.0f))
+        {
+            encounterUI.OnPlayerWin();
+        }
+
+        else if ((this.gameObject.name == "PlayerHealthBar") && (monster.CurrentHp <= 0.0f))
+        {
+            encounterUI.OnPlayerLose();
+        }
     }
+
+
+
 }

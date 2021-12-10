@@ -21,6 +21,10 @@ public class SaveLoadSystem : MonoBehaviour
             OnLoadButtonPressed();
         }
 
+        if (PlayerPrefs.GetInt("ReturnFromEncounter") == 1)
+        {
+            TempLoad(); 
+        }
     }
 
     // Update is called once per frame
@@ -52,6 +56,12 @@ public class SaveLoadSystem : MonoBehaviour
             Debug.Log("no save game found");
         }
     }
+
+    public void TempLoad()
+    {
+        player.transform.position = new Vector2(PlayerPrefs.GetFloat("tempXPos"), PlayerPrefs.GetFloat("tempYPos"));
+    }
+
 
     public void OnQuitButtonPressed()
     {

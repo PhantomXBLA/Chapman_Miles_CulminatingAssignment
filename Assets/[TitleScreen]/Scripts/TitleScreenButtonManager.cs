@@ -126,11 +126,6 @@ public class TitleScreenButtonManager : MonoBehaviour
 
     }
 
-    void BackButtonPressed()
-    {
-
-    }
-
     public void fadeToBlack()
     {
         //This is changing the FadeIn/Out image to 1 (0 = invisible / 1 = visible)
@@ -164,6 +159,7 @@ public class TitleScreenButtonManager : MonoBehaviour
         if (PlayerPrefs.HasKey("xPos") && PlayerPrefs.HasKey("yPos")) // do stuff if playerprefs has data to load
         {
             PlayerPrefs.SetInt("NewGameFlag", 0);
+            PlayerPrefs.SetInt("ReturnFromEncounter", 0);
             yield return new WaitForSeconds(5f);
             SceneManager.LoadScene(1);
         }
