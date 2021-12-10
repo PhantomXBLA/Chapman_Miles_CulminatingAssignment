@@ -106,24 +106,20 @@ public class TitleScreenButtonManager : MonoBehaviour
     void HelpButtonPressed()
     {
         Debug.Log("4");
-        CassetteButton.Play();
-        SceneManager.LoadScene("Help");
+        StartCoroutine(ButtonDelayAndHelp());
     }
 
     void CreditsButtonPressed()
     {
         Debug.Log("5");
-        StartCoroutine(ButtonDelayAndPlay());
-        //CassetteButton.Play();
-        SceneManager.LoadScene("Credits");
+        StartCoroutine(ButtonDelayAndCredits());
 
     }
 
     void QuitButtonPressed()
     {
         Debug.Log("6");
-        CassetteButton.Play();
-        Application.Quit();
+        StartCoroutine(ButtonDelayAndQuit());
 
     }
 
@@ -185,9 +181,24 @@ public class TitleScreenButtonManager : MonoBehaviour
         fadeFromBlack();
     }
 
-    IEnumerator ButtonDelayAndPlay()
+    IEnumerator ButtonDelayAndCredits()
     {
         CassetteButton.Play();
         yield return new WaitForSeconds(.5f);
+        SceneManager.LoadScene("Credits");
+    }
+
+    IEnumerator ButtonDelayAndHelp()
+    {
+        CassetteButton.Play();
+        yield return new WaitForSeconds(.5f);
+        SceneManager.LoadScene("Help");
+    }
+
+    IEnumerator ButtonDelayAndQuit()
+    {
+        CassetteButton.Play();
+        yield return new WaitForSeconds(.5f);
+        Application.Quit();
     }
 }
