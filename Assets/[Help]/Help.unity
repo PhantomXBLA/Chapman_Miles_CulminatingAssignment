@@ -155,9 +155,9 @@ RectTransform:
   m_Father: {fileID: 831515935}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.7416, y: -46}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 517, y: -326}
   m_SizeDelta: {x: 1009.53, y: 488.0987}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &436219393
@@ -182,23 +182,22 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'How to Play:
 
-    
+
 
     Move: W, A, S, D keyboard keys.
 
 
-    On-Screen
-    Buttons: You mouse to click on-screen buttons
+    On-Screen Buttons:
+    You mouse to click on-screen buttons
 
 
-    To Battle: Move through
-    the blue flowers, or find Livar and interact with him.
+    To Battle: Move through the blue flowers,
+    or find Livar and interact with him.
 
-    
 
-    To Interact:
-    Press space when prompted on-screen to talk to other characters, or to read signs
-    throughout the world.'
+
+    To Interact: Press space when prompted
+    on-screen to talk to other characters, or to read signs throughout the world.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -564,9 +563,9 @@ RectTransform:
   m_Father: {fileID: 831515935}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 243}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1237107189

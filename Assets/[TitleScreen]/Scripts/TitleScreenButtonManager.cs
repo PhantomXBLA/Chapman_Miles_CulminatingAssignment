@@ -113,7 +113,8 @@ public class TitleScreenButtonManager : MonoBehaviour
     void CreditsButtonPressed()
     {
         Debug.Log("5");
-        CassetteButton.Play();
+        StartCoroutine(ButtonDelayAndPlay());
+        //CassetteButton.Play();
         SceneManager.LoadScene("Credits");
 
     }
@@ -182,5 +183,11 @@ public class TitleScreenButtonManager : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         fadeFromBlack();
+    }
+
+    IEnumerator ButtonDelayAndPlay()
+    {
+        CassetteButton.Play();
+        yield return new WaitForSeconds(.5f);
     }
 }
